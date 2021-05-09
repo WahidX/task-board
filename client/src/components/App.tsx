@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ChakraProvider, Box, theme } from "@chakra-ui/react";
+import { ChakraProvider, Box, theme, Center, Container } from "@chakra-ui/react";
 
-import Column from "./Column";
 import Header from "./shared/Header";
 import axios from "axios";
+import Home from "./Home";
 
 const App = () => {
 	React.useEffect(() => {
@@ -19,10 +19,17 @@ const App = () => {
 
 	return (
 		<ChakraProvider theme={theme}>
-			<Box textAlign="center" fontSize="xl">
-				<Header />
-				<Column />
-			</Box>
+			<Container
+				maxW={{
+					sm: "container.md",
+					md: "container.xl",
+				}}
+			>
+				<Box fontSize="xl">
+					<Header />
+					<Home />
+				</Box>
+			</Container>
 		</ChakraProvider>
 	);
 };
