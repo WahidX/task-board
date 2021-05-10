@@ -13,8 +13,6 @@ import Header from "./shared/Header";
 import Home from "./Home";
 
 const App = (props) => {
-	console.log(props.user.isLoggedin);
-
 	return (
 		<ChakraProvider theme={theme}>
 			<Container

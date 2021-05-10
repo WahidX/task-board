@@ -11,10 +11,10 @@ import { ColorModeSwitcher } from "./../ColorModeSwitcher";
 import { RootState } from "../../store";
 import LSidebar from "../LSideBar";
 import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody } from "@chakra-ui/modal";
+import strings from "../../strings";
 
 function Header(props) {
 	let islocal: Boolean = props.app.local;
-
 	const { onOpen, onClose, isOpen } = useDisclosure();
 
 	return (
@@ -26,13 +26,13 @@ function Header(props) {
 				<Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
 					<DrawerOverlay />
 					<DrawerContent>
-						<DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+						<DrawerHeader borderBottomWidth="1px">{strings.APP_NAME()}</DrawerHeader>
 						<DrawerBody>
 							<LSidebar />
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
-				<Text>Task Board</Text>
+				<Text> {strings.APP_NAME()} </Text>
 				<Box>
 					<Button m="1" disabled={islocal}>
 						Login
