@@ -1,21 +1,19 @@
 import * as React from "react";
-import { ChakraProvider, Box, theme, Center, Container } from "@chakra-ui/react";
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+// chakra
+import { ChakraProvider, Box, theme, Container } from "@chakra-ui/react";
+
+// types
+import { RootState } from "../store";
+
+// Components
 import Header from "./shared/Header";
-import axios from "axios";
 import Home from "./Home";
 
-const App = () => {
-	React.useEffect(() => {
-		axios
-			.get("http://localhost:8000/")
-			.then((response) => {
-				console.log(response.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+const App = (props) => {
+	console.log(props.user.isLoggedin);
 
 	return (
 		<ChakraProvider theme={theme}>
@@ -27,11 +25,24 @@ const App = () => {
 			>
 				<Box fontSize="xl">
 					<Header />
-					<Home />
+					<Router>
+						<Switch>
+							<Route exact path="/" component={Home} />
+							{/* <Route exact path="/signup" component={Signup} />
+            <Route exact path="/login" component={Login} /> */}
+						</Switch>
+					</Router>
 				</Box>
 			</Container>
 		</ChakraProvider>
 	);
 };
 
-export default App;
+function mapStateToProps(state: RootState) {
+	return {
+		app: state.app,
+		user: state.user,
+	};
+}
+
+export default connect(mapStateToProps)(App);
