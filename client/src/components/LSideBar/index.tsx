@@ -1,14 +1,16 @@
-import { Box, VStack } from "@chakra-ui/layout";
+// chakra-ui
+import { VStack } from "@chakra-ui/layout";
+
 import React from "react";
 import NoteList from "./NoteList";
+import Quicklinks from "./Quicklinks";
 
 function LSidebar(props) {
 	return (
-		<Box marginRight="20">
-			<VStack>
-				<NoteList />
-			</VStack>
-		</Box>
+		<VStack>
+			<NoteList />
+			<Quicklinks />
+		</VStack>
 	);
 }
 

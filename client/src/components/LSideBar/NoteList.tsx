@@ -1,9 +1,13 @@
-import { Divider, List, ListItem, Text, Center } from "@chakra-ui/layout";
+import { Divider, List, ListItem, Text } from "@chakra-ui/layout";
 import React from "react";
+
+import CustomDivider from "../shared/CustomDivider";
 
 function NoteList(props) {
 	return (
 		<div>
+			<CustomDivider width={30} />
+
 			<Text>Todos</Text>
 			<Divider />
 			<List>
@@ -12,9 +16,7 @@ function NoteList(props) {
 				<ListItem>Todo3</ListItem>
 			</List>
 
-			<Center height="50px">
-				<Divider />
-			</Center>
+			<CustomDivider width={30} />
 
 			<Text>Task Boards</Text>
 			<Divider />
@@ -23,6 +25,8 @@ function NoteList(props) {
 				<ListItem>Task Board2</ListItem>
 				<ListItem>Task Board3</ListItem>
 			</List>
+
+			<CustomDivider width={30} />
 		</div>
 	);
 }
