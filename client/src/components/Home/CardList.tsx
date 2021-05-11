@@ -1,8 +1,10 @@
+import { Grid } from "@chakra-ui/layout";
 import React from "react";
 import Cards from "./Cards";
+import CreateTodo from "./CreateTodo";
 
 interface card {
-	heading: String;
+	title: String;
 	timestamp: Date;
 	description: String;
 	id: number;
@@ -10,33 +12,34 @@ interface card {
 
 const cards: card[] = [
 	{
-		heading: "Hello",
+		title: "Hello",
 		timestamp: new Date(),
 		description: "Description",
 		id: 1,
 	},
 	{
-		heading: "Card2",
+		title: "Card2",
 		timestamp: new Date(),
 		description: "New Card",
 		id: 2,
 	},
 	{
-		heading: "Last Card",
+		title: "Last Card",
 		timestamp: new Date(),
 		description: "Card desc",
 		id: 3,
 	},
 ];
 
-function CardsList(props) {
+function CardList(props) {
 	return (
-		<div>
+		<Grid templateColumns="repeat(2, 1fr)" gap={6} w="100%">
+			<CreateTodo />
 			{cards.map((card) => (
 				<Cards key={card.id} card={card} />
 			))}
-		</div>
+		</Grid>
 	);
 }
 
-export default CardsList;
+export default CardList;

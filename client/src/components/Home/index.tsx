@@ -1,11 +1,11 @@
 import { Box } from "@chakra-ui/layout";
 import React from "react";
-import Column from "./Column";
+import CardList from "./CardList";
 
 function Home(props) {
 	return (
-		<Box display="flex">
-			<Column />
+		<Box marginTop="10">
+			<CardList />
 		</Box>
 	);
 }
