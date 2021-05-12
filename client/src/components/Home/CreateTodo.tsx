@@ -12,6 +12,13 @@ function CreateTodo(props) {
 		description: "",
 	});
 
+	let resetCard = () => {
+		setCard({
+			title: "",
+			description: "",
+		});
+	};
+
 	return (
 		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2">
 			<Box onClick={onOpen} textAlign="center">
@@ -38,7 +45,7 @@ function CreateTodo(props) {
 
 					<ModalFooter justifyContent="space-between">
 						<IconButton left="0" aria-label="fav-todo">
-							<DeleteIcon />
+							<DeleteIcon onClick={resetCard} />
 						</IconButton>
 
 						<IconButton aria-label="fav-todo">

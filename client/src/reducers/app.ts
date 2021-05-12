@@ -1,3 +1,4 @@
+import { Action } from "redux";
 interface AppStore {
 	local: Boolean;
 	error: String;
@@ -12,7 +13,7 @@ const initialState: AppStore = {
 	config: {},
 };
 
-export default function app(state = initialState, action) {
+export default function app(state = initialState, action: Action) {
 	switch (action.type) {
 		default:
 			return state;
