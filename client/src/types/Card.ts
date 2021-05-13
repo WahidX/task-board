@@ -4,7 +4,14 @@ interface Card {
 	content: String;
 	hasTodo: Boolean;
 	todo?: Todo;
+	parentType: CardParentType;
+	parent: ID;
 	timestamp: Date;
+}
+
+enum CardParentType {
+	notebook = "notebooks",
+	taskboard = "taskborads",
 }
 
 interface Todo {
