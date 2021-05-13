@@ -11,6 +11,9 @@ import {
 	ADD_CARD_SUCCESS,
 	EDIT_CARD_SUCCESS,
 } from "./actionTypes";
+import { sampleNotebook } from "../defaults/sample_Notebook";
+import { Card } from "../@types/Card";
+import { NoteBook } from "../@types/NoteBook";
 
 export const itemLoading = (): Action => {
 	return {
@@ -25,10 +28,10 @@ export const itemError = (error: any): AnyAction => {
 	};
 };
 
-export const addNotebookSuccess = (name: String): AnyAction => {
+export const addNotebookSuccess = (notebook: NoteBook): AnyAction => {
 	return {
 		type: ADD_NOTEBOOK_SUCCESS,
-		name,
+		notebook,
 	};
 };
 
@@ -39,7 +42,7 @@ export const addNotebook = (name: String) => {
 		//	API call to add NoteBook
 		//
 		// Success:
-		dispatch(addNotebookSuccess(name));
+		dispatch(addNotebookSuccess(sampleNotebook(name)));
 		// Alert
 
 		// Failed

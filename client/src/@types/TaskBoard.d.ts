@@ -1,4 +1,4 @@
-interface TaskBoard {
+export interface TaskBoard {
 	id: ID;
 	name: String;
 	description: String;
@@ -6,7 +6,7 @@ interface TaskBoard {
 	lastUpd: Date;
 }
 
-interface Column {
+export interface Column {
 	name: String;
 	cards: Card[];
 }

@@ -29,10 +29,6 @@ function NoteList(props) {
 						{notebookArr[1].name}
 					</ListItem>
 				))}
-
-				<ListItem>Todo1</ListItem>
-				<ListItem>Todo2</ListItem>
-				<ListItem>Todo3</ListItem>
 			</List>
 
 			<CustomDivider width={30} />

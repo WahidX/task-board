@@ -1,4 +1,6 @@
-interface Card {
+import { CardParentType } from "../enums";
+
+export interface Card {
 	id: ID;
 	title: String;
 	content: String;
@@ -9,17 +11,12 @@ interface Card {
 	timestamp: Date;
 }
 
-enum CardParentType {
-	notebook = "notebooks",
-	taskboard = "taskborads",
-}
-
-interface Todo {
+export interface Todo {
 	completed: TodoItem[];
 	incompleted: TodoItem[];
 }
 
-interface TodoItem {
+export interface TodoItem {
 	content: String;
 	isComplete: Boolean;
 	timestamp: Date;

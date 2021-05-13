@@ -1,4 +1,5 @@
 import { Action } from "redux";
+import { Card } from "../@types/Card";
 import {
 	START_ITEM_LOADING,
 	ITEM_ERROR,

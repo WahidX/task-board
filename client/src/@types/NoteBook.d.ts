@@ -1,4 +1,4 @@
-interface NoteBook {
+export interface NoteBook {
 	id: ID;
 	name: String;
 	cards: Card[];
