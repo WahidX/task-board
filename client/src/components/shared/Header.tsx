@@ -47,10 +47,10 @@ function Header(props) {
 	);
 }
 
-function mapStateToProps(state: RootState) {
+function mapStoreToProps(state: RootState) {
 	return {
 		app: state.app,
 	};
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStoreToProps)(Header);

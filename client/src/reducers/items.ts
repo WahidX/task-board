@@ -8,7 +8,7 @@ import {
 	ADD_CARD_SUCCESS,
 } from "../actions/actionTypes";
 
-interface ItemStore {
+export interface ItemStore {
 	notebooks: {
 		[index: string]: NoteBook;
 	};
@@ -24,7 +24,7 @@ const initialState: ItemStore = {
 	loading: false,
 };
 
-export default function items(state: ItemStore = initialState, action: Action | any): Object {
+export default function items(state: ItemStore = initialState, action: Action | any): ItemStore {
 	switch (action.type) {
 		case START_ITEM_LOADING:
 			return {

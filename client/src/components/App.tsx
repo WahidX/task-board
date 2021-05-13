@@ -36,11 +36,11 @@ const App = (props) => {
 	);
 };
 
-function mapStateToProps(state: RootState) {
+function mapStoreToProps(state: RootState) {
 	return {
 		app: state.app,
 		user: state.user,
 	};
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStoreToProps)(App);
