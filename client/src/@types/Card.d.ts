@@ -1,4 +1,5 @@
 import { CardParentType } from "../enums";
+import { ID } from "./Global";
 
 export interface Card {
 	id: ID;
@@ -12,6 +13,7 @@ export interface Card {
 }
 
 export interface Todo {
+	card: ID;
 	completed: TodoItem[];
 	incompleted: TodoItem[];
 }

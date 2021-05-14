@@ -4,9 +4,11 @@ import { IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Modal, ModalContent, ModalOverlay, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/modal";
 import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
+import { Card } from "../../@types/Card";
+import TodoContainer from "./TodoContainer";
 
 function Cards(props) {
-	let card = props.card;
+	let card: Card = props.card;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
 		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2">
@@ -25,6 +27,8 @@ function Cards(props) {
 
 					<ModalBody>
 						<Textarea resize="vertical" placeholder="Content" value={card.content} />
+
+						{card.hasTodo && <TodoContainer todo={card.todo} />}
 					</ModalBody>
 
 					<ModalFooter>

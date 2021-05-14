@@ -1,4 +1,6 @@
 import { Card, Todo, TodoItem } from "../@types/Card";
+import { ID } from "../@types/Global";
+import { NoteBook } from "../@types/NoteBook";
 import { CardParentType } from "../enums";
 
 // As of now name is used as ID
@@ -21,7 +23,7 @@ const sampleGroceryCard = (parent: String): Card => {
 		id: title,
 		content: "Things to buy...",
 		hasTodo: true,
-		todo: sampleTodo(),
+		todo: sampleTodo(title),
 		parent,
 		parentType: CardParentType.notebook,
 		timestamp: new Date(),
@@ -41,8 +43,9 @@ const sampleAddressCard = (parent: String): Card => {
 	};
 };
 
-const sampleTodo = (): Todo => {
+const sampleTodo = (card: ID): Todo => {
 	return {
+		card,
 		completed: [getTodoItem("Egg", true)],
 		incompleted: [getTodoItem("Sugar", false), getTodoItem("Oats", false)],
 	};
