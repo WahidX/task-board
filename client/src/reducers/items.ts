@@ -1,5 +1,7 @@
 import { Action } from "redux";
 import { Card } from "../@types/Card";
+import { NoteBook } from "../@types/NoteBook";
+import { TaskBoard } from "../@types/TaskBoard";
 import {
 	START_ITEM_LOADING,
 	ITEM_ERROR,

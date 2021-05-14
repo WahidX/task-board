@@ -1,14 +1,8 @@
 import { Action } from "redux";
-interface AppStore {
-	local: Boolean;
-	mode: AppMode;
-	currentItem: unknown | NoteBook | TaskBoard; // have to check
-	error: String;
-	loading: Boolean;
-	config: Object;
-}
+import { AppStore } from "../@types/Stores";
+import { UPDATE_CURRENT_ITEM } from "../actions/actionTypes";
 
-enum AppMode {
+export enum AppMode {
 	notebook = "notebook",
 	taskboard = "taskboard",
 }
@@ -24,6 +18,12 @@ const initialState: AppStore = {
 
 export default function app(state = initialState, action: Action) {
 	switch (action.type) {
+		case UPDATE_CURRENT_ITEM:
+			return {
+				...state,
+				mode: action.mode,
+				currentItem: action.item,
+			};
 		default:
 			return state;
 	}

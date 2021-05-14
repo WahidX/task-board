@@ -1,6 +1,11 @@
+import { Button } from "@chakra-ui/button";
 import { Divider, List, ListItem, Text } from "@chakra-ui/layout";
 import React, { Key } from "react";
 import { connect } from "react-redux";
+import { NoteBook } from "../../../@types/NoteBook";
+import { TaskBoard } from "../../../@types/TaskBoard";
+import { updateCurrent } from "../../../actions/app";
+import { AppMode } from "../../../reducers/app";
 import { RootState } from "../../../store";
 import CustomDivider from "../../shared/CustomDivider";
 import CreateField from "./CreateField";
@@ -16,17 +21,29 @@ function NoteList(props) {
 	let currentItem = props.app.currentItem;
 	console.log("mode: ", mode, "currentItem: ", currentItem);
 
+	let handleSelectItem = (modeString: String, item: NoteBook | TaskBoard) => {
+		let mode = modeString === "notebook" ? AppMode.notebook : AppMode.taskboard;
+		props.dispatch(updateCurrent(mode, item));
+	};
+
 	return (
 		<div>
 			<CustomDivider width={30} />
 
 			<Text>Notebooks</Text>
 			<Divider />
-			<List spacing="2">
+			<List>
 				<CreateField type="notebook" />
 				{notebooks.map((notebookArr: NoteBookArr) => (
-					<ListItem bg={currentItem === notebookArr[0] ? "grey" : ""} key={notebookArr[0] as Key}>
-						{notebookArr[1].name}
+					<ListItem key={notebookArr[0] as Key}>
+						<Button
+							w="100%"
+							colorScheme="teal"
+							variant={currentItem.id === notebookArr[0] ? "solid" : "ghost"}
+							onClick={() => handleSelectItem("notebook", notebookArr[1])}
+						>
+							{notebookArr[1].name}
+						</Button>
 					</ListItem>
 				))}
 			</List>
@@ -38,12 +55,16 @@ function NoteList(props) {
 			<CreateField type="taskboard" />
 			<List spacing="2">
 				{taskboards.map((taskboardArr: TaskBoardArr) => (
-					<ListItem key={taskboardArr[0] as Key}>{taskboardArr[1].name}</ListItem>
+					<ListItem key={taskboardArr[0] as Key}>
+						<Button
+							colorScheme="teal"
+							variant={currentItem.id === taskboardArr[0] ? "solid" : "ghost"}
+							onClick={() => handleSelectItem("taskboard", taskboardArr[1])}
+						>
+							{taskboardArr[1].name}
+						</Button>
+					</ListItem>
 				))}
-
-				<ListItem>Task Board1</ListItem>
-				<ListItem>Task Board2</ListItem>
-				<ListItem>Task Board3</ListItem>
 			</List>
 
 			<CustomDivider width={30} />

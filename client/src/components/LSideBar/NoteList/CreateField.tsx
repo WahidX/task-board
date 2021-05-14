@@ -24,6 +24,7 @@ function CreateField(props: CreateFieldProps) {
 			<InputGroup>
 				<Input
 					type="text"
+					variant="filled"
 					aria-label="create-field"
 					placeholder={`Enter ${props.type} name`}
 					value={name}
