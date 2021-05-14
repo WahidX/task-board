@@ -10,3 +10,20 @@ export interface AppStore {
 	loading: Boolean;
 	config: Object;
 }
+
+export interface ItemStore {
+	notebooks: {
+		[index: string]: NoteBook;
+	};
+	taskboards: {
+		[index: string]: TaskBoard;
+	};
+	loading: Boolean;
+}
+
+export interface UserStore {
+	// profile?: UserProfile;
+	error: String;
+	isLoggedin: Boolean;
+	loading: Boolean;
+}

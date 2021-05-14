@@ -1,11 +1,5 @@
 import { Action } from "redux";
-
-interface UserStore {
-	profile?: User;
-	error: String;
-	isLoggedin: Boolean;
-	loading: Boolean;
-}
+import { UserStore } from "../@types/Stores";
 
 const initialState: UserStore = {
 	loading: false,

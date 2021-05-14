@@ -1,7 +1,7 @@
 import { Action } from "redux";
 import { Card } from "../@types/Card";
-import { NoteBook } from "../@types/NoteBook";
-import { TaskBoard } from "../@types/TaskBoard";
+import { ItemStore } from "../@types/Stores";
+
 import {
 	START_ITEM_LOADING,
 	ITEM_ERROR,
@@ -10,16 +10,6 @@ import {
 	DELETE_NOTEBOOK_SUCCESS,
 	ADD_CARD_SUCCESS,
 } from "../actions/actionTypes";
-
-export interface ItemStore {
-	notebooks: {
-		[index: string]: NoteBook;
-	};
-	taskboards: {
-		[index: string]: TaskBoard;
-	};
-	loading: Boolean;
-}
 
 const initialState: ItemStore = {
 	notebooks: {},
