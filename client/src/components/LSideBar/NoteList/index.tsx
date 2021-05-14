@@ -17,12 +17,10 @@ function NoteList(props) {
 	let notebooks: NoteBookArr[] = Object.entries(props.notebooks);
 	let taskboards: TaskBoardArr[] = Object.entries(props.taskboards);
 
-	let mode = props.app.mode;
 	let currentItem = props.app.currentItem;
-	console.log("mode: ", mode, "currentItem: ", currentItem);
 
-	let handleSelectItem = (modeString: String, item: NoteBook | TaskBoard) => {
-		let mode = modeString === "notebook" ? AppMode.notebook : AppMode.taskboard;
+	let handleSelectItem = (item: NoteBook | TaskBoard) => {
+		let mode = props.app.mode === "notebook" ? AppMode.notebook : AppMode.taskboard;
 		props.dispatch(updateCurrent(mode, item));
 	};
 
@@ -37,10 +35,10 @@ function NoteList(props) {
 				{notebooks.map((notebookArr: NoteBookArr) => (
 					<ListItem key={notebookArr[0] as Key}>
 						<Button
-							w="100%"
+							isFullWidth={true}
 							colorScheme="teal"
-							variant={currentItem.id === notebookArr[0] ? "solid" : "ghost"}
-							onClick={() => handleSelectItem("notebook", notebookArr[1])}
+							variant={currentItem && currentItem.id === notebookArr[0] ? "solid" : "ghost"}
+							onClick={() => handleSelectItem(notebookArr[1])}
 						>
 							{notebookArr[1].name}
 						</Button>
@@ -57,6 +55,7 @@ function NoteList(props) {
 				{taskboards.map((taskboardArr: TaskBoardArr) => (
 					<ListItem key={taskboardArr[0] as Key}>
 						<Button
+							isFullWidth={true}
 							colorScheme="teal"
 							variant={currentItem.id === taskboardArr[0] ? "solid" : "ghost"}
 							onClick={() => handleSelectItem("taskboard", taskboardArr[1])}
@@ -66,7 +65,6 @@ function NoteList(props) {
 					</ListItem>
 				))}
 			</List>
-
 			<CustomDivider width={30} />
 		</div>
 	);

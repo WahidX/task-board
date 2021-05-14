@@ -11,7 +11,6 @@ function CreateField(props: CreateFieldProps) {
 
 	let addItemHandle = (e) => {
 		e.preventDefault();
-		console.log("To be created : ", name);
 		if (name.trim().length !== 0) {
 			if (props.type === "notebook") props.dispatch(addNotebook(name));
 			// else props.dispatch(addTaskBoard(name));

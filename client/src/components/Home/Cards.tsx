@@ -12,7 +12,7 @@ function Cards(props) {
 		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2">
 			<div onClick={onOpen}>
 				<Text>{card.title}</Text>
-				<Text>{card.description}</Text>
+				<Text>{card.content}</Text>
 			</div>
 
 			<Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
@@ -24,7 +24,7 @@ function Cards(props) {
 					<ModalCloseButton />
 
 					<ModalBody>
-						<Textarea resize="vertical" placeholder="Content" value={card.description} />
+						<Textarea resize="vertical" placeholder="Content" value={card.content} />
 					</ModalBody>
 
 					<ModalFooter>
