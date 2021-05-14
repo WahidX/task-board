@@ -14,6 +14,7 @@ import {
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
 import { NoteBook } from "../@types/NoteBook";
+import { setToast, toastStatus } from "../components/shared/Toast";
 
 export const itemLoading = (): Action => {
 	return {
@@ -43,11 +44,12 @@ export const addNotebook = (name: String) => {
 		//
 		// Success:
 		dispatch(addNotebookSuccess(sampleNotebook(name)));
+		setToast("Notebook created!", toastStatus.success);
 		// Alert
 
 		// Failed
 		// dispatch(itemError(err));
-		// alert err
+		// setToast("Error while creating a notebook", toastStatus.error);
 	};
 };
 

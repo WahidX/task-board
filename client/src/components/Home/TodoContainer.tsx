@@ -1,5 +1,5 @@
 import { Checkbox } from "@chakra-ui/checkbox";
-import { List, ListItem, Text, VStack } from "@chakra-ui/layout";
+import { List, ListItem } from "@chakra-ui/layout";
 import React from "react";
 import { connect } from "react-redux";
 import { Todo } from "../../@types/Card";
