@@ -8,5 +8,6 @@ export interface TaskBoard {
 
 export interface Column {
 	name: String;
+	taskboard: String;
 	cards: Card[];
 }
