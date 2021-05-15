@@ -6,7 +6,7 @@ import { RootState } from "../../store";
 import Cards from "./Cards";
 import CreateTodo from "./CreateTodo";
 
-function CardList(props) {
+function NotebookContainer(props) {
 	let cards: Card[];
 	cards = props.app.currentItem ? props.app.currentItem.cards : [];
 
@@ -26,4 +26,4 @@ function mapStoreToProps(state: RootState) {
 	};
 }
 
-export default connect(mapStoreToProps)(CardList);
+export default connect(mapStoreToProps)(NotebookContainer);

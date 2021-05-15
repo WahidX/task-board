@@ -7,11 +7,15 @@ import {
 	ITEM_ERROR,
 	ADD_CARD_SUCCESS,
 	EDIT_CARD_SUCCESS,
+	ADD_TASKBOARD_SUCCESS,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
 import { NoteBook } from "../@types/NoteBook";
 import { setToast, toastStatus } from "../components/shared/Toast";
+import { ID } from "../@types/Global";
+import { sampleTaskBoard } from "../defaults/sample_TaskBoard";
+import { TaskBoard } from "../@types/TaskBoard";
 
 export const itemLoading = (): Action => {
 	return {
@@ -168,5 +172,29 @@ export const deleteCard = (id: ID) => {
 		// Failed
 		// dispatch(itemError(err));
 		// alert err
+	};
+};
+
+export const addTaskBoardSuccess = (taskboard: TaskBoard) => {
+	return {
+		type: ADD_TASKBOARD_SUCCESS,
+		taskboard,
+	};
+};
+
+export const addTaskBoard = (name: String) => {
+	return (dispatch: Dispatch) => {
+		dispatch(itemLoading());
+		//
+		//	API call to add NoteBook
+		//
+		// Success:
+		dispatch(addTaskBoardSuccess(sampleTaskBoard(name)));
+		setToast("TaskBoard created!", toastStatus.success);
+		// Alert
+
+		// Failed
+		// dispatch(itemError(err));
+		// setToast("Error while creating a task board", toastStatus.error);
 	};
 };

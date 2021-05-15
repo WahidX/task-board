@@ -19,9 +19,8 @@ function NoteList(props) {
 
 	let currentItem = props.app.currentItem;
 
-	let handleSelectItem = (item: NoteBook | TaskBoard) => {
-		let mode = props.app.mode === "notebook" ? AppMode.notebook : AppMode.taskboard;
-		props.dispatch(updateCurrent(mode, item));
+	let handleSelectItem = (type: AppMode, item: NoteBook | TaskBoard) => {
+		props.dispatch(updateCurrent(type, item));
 	};
 
 	return (
@@ -38,7 +37,7 @@ function NoteList(props) {
 							isFullWidth={true}
 							colorScheme="teal"
 							variant={currentItem && currentItem.id === notebookArr[0] ? "solid" : "ghost"}
-							onClick={() => handleSelectItem(notebookArr[1])}
+							onClick={() => handleSelectItem(AppMode.notebook, notebookArr[1])}
 						>
 							{notebookArr[1].name}
 						</Button>
@@ -50,15 +49,15 @@ function NoteList(props) {
 
 			<Text>Task Boards</Text>
 			<Divider />
-			<CreateField type="taskboard" />
-			<List spacing="2">
+			<List>
+				<CreateField type="taskboard" />
 				{taskboards.map((taskboardArr: TaskBoardArr) => (
 					<ListItem key={taskboardArr[0] as Key}>
 						<Button
 							isFullWidth={true}
 							colorScheme="teal"
-							variant={currentItem.id === taskboardArr[0] ? "solid" : "ghost"}
-							onClick={() => handleSelectItem("taskboard", taskboardArr[1])}
+							variant={currentItem && currentItem.id === taskboardArr[0] ? "solid" : "ghost"}
+							onClick={() => handleSelectItem(AppMode.taskboard, taskboardArr[1])}
 						>
 							{taskboardArr[1].name}
 						</Button>

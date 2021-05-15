@@ -3,7 +3,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addNotebook } from "../../../actions/notebook";
+import { addNotebook, addTaskBoard } from "../../../actions/notebook";
 import { RootState } from "../../../store";
 
 function CreateField(props: CreateFieldProps) {
@@ -13,7 +13,7 @@ function CreateField(props: CreateFieldProps) {
 		e.preventDefault();
 		if (name.trim().length !== 0) {
 			if (props.type === "notebook") props.dispatch(addNotebook(name));
-			// else props.dispatch(addTaskBoard(name));
+			else props.dispatch(addTaskBoard(name));
 		}
 		setName("");
 	};

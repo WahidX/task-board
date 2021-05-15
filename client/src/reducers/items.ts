@@ -9,6 +9,7 @@ import {
 	EDIT_NOTEBOOK_SUCCESS,
 	DELETE_NOTEBOOK_SUCCESS,
 	ADD_CARD_SUCCESS,
+	ADD_TASKBOARD_SUCCESS,
 } from "../actions/actionTypes";
 
 const initialState: ItemStore = {
@@ -77,6 +78,15 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				loading: false,
 			};
 
+		case ADD_TASKBOARD_SUCCESS:
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboard.id]: action.taskboard,
+				},
+				loading: false,
+			};
 		default:
 			return state;
 	}
