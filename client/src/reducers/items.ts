@@ -1,6 +1,7 @@
 import { Action } from "redux";
 import { Card } from "../@types/Card";
 import { ItemStore } from "../@types/Stores";
+import { TaskBoard } from "../@types/TaskBoard";
 
 import {
 	START_ITEM_LOADING,
@@ -10,6 +11,7 @@ import {
 	DELETE_NOTEBOOK_SUCCESS,
 	ADD_CARD_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
+	CARD_REORDER,
 } from "../actions/actionTypes";
 
 const initialState: ItemStore = {
@@ -86,6 +88,21 @@ export default function items(state: ItemStore = initialState, action: Action | 
 					[action.taskboard.id]: action.taskboard,
 				},
 				loading: false,
+			};
+
+		case CARD_REORDER:
+			let changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+			changedTaskboard.columns.forEach((column) => {
+				if (column.name === action.columnName) {
+					column.cards = action.cards;
+				}
+			});
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: changedTaskboard,
+				},
 			};
 		default:
 			return state;

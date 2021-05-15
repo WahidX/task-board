@@ -21,7 +21,7 @@ const sampleColumnTodos = (parent: String): Column => {
 	return {
 		name,
 		taskboard: parent,
-		cards: [getCard(name, "Study for Physics Test"), getCard(name, "Practice Mechanics")],
+		cards: [getCard(name, "Study for Physics Test"), getCard(name, "Practice Mechanics"), getCard(name, "Start Creating your own cards")],
 	};
 };
 
