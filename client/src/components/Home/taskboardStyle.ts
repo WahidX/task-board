@@ -4,6 +4,7 @@ export const getListStyle = (isDraggingOver: Boolean) => ({
 	background: isDraggingOver ? "lightblue" : "lightgrey",
 	padding: grid,
 	width: 250,
+	borderRadius: "10px",
 });
 
 export const getItemStyle = (isDragging: Boolean, draggableStyle) => ({
@@ -11,9 +12,9 @@ export const getItemStyle = (isDragging: Boolean, draggableStyle) => ({
 	userSelect: "none",
 	padding: grid * 2,
 	margin: `0 0 ${grid}px 0`,
-
+	borderRadius: "10px",
 	// change background colour if dragging
-	background: isDragging ? "lightgreen" : "grey",
+	background: isDragging ? "teal" : "grey",
 
 	// styles we need to apply on draggables
 	...draggableStyle,

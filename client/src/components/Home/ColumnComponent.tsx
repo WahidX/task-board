@@ -1,13 +1,13 @@
+import { Text } from "@chakra-ui/react";
 import React from "react";
-import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd";
+import { Draggable, Droppable, DropResult } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { Card } from "../../@types/Card";
 import { Column } from "../../@types/TaskBoard";
 import { reorderCards } from "../../actions/notebook";
-import reorder from "../../helpers/reorder";
+import reorder from "../../helpers/DND_Utils";
 import { RootState } from "../../store";
-import Cards from "./Cards";
-import { getListStyle, getItemStyle } from "./taskboardStyle";
+import DNDCards from "./DNDCards";
 
 function ColumnComponent(props) {
 	let column: Column = props.column;
@@ -20,32 +20,25 @@ function ColumnComponent(props) {
 	};
 
 	return (
-		<div>
-			{column.name}
-			<DragDropContext onDragEnd={onDragEnd}>
-				<Droppable droppableId={`droppable-${column.name}`}>
-					{(provided, snapshot) => (
-						<div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-							{column.cards.map((card: Card, index: number) => (
-								<Draggable key={card.id} draggableId={`card-${card.id}`} index={index}>
-									{(provided, snapshot) => (
-										<div
-											ref={provided.innerRef}
-											{...provided.draggableProps}
-											{...provided.dragHandleProps}
-											style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-										>
-											<Cards card={card} key={card.id} />
-										</div>
-									)}
-								</Draggable>
-							))}
-							{provided.placeholder}
-						</div>
-					)}
-				</Droppable>
-			</DragDropContext>
-		</div>
+		<Draggable draggableId={column.name} index={props.index}>
+			{(provided) => (
+				<div {...provided.draggableProps} ref={provided.innerRef}>
+					<Text fontSize="3xl" textAlign="center" {...provided.dragHandleProps}>
+						{column.name}
+					</Text>
+					<Droppable droppableId={`${column.name}`} type="task">
+						{(provided, snapshot) => (
+							<div {...provided.droppableProps} ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
+								{column.cards.map((card: Card, index: number) => (
+									<DNDCards card={card} index={index} />
+								))}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</div>
+			)}
+		</Draggable>
 	);
 }
 
