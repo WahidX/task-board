@@ -11,7 +11,7 @@ function Cards(props) {
 	let card: Card = props.card;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
-		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2">
+		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2" fontSize="md">
 			<div onClick={onOpen}>
 				<Text>{card.title}</Text>
 				<Text>{card.content}</Text>

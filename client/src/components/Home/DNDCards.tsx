@@ -7,9 +7,14 @@ function DNDCards(props) {
 	let card: Card = props.card;
 
 	return (
-		<Draggable draggableId={card.id} index={props.index}>
+		<Draggable key={card.id} draggableId={card.id} index={props.index}>
 			{(provided, snapshot) => (
-				<div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} isDragging={snapshot.isDragging}>
+				<div
+					{...provided.draggableProps}
+					{...provided.dragHandleProps}
+					ref={provided.innerRef}
+					isDragging={snapshot.isDragging}
+				>
 					<Cards card={card} index={props.index} />
 				</div>
 			)}

@@ -12,6 +12,8 @@ import {
 	ADD_CARD_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
 	CARD_REORDER,
+	UPDATE_CARDS,
+	UPDATE_COLUMNS,
 } from "../actions/actionTypes";
 
 const initialState: ItemStore = {
@@ -90,13 +92,26 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				loading: false,
 			};
 
-		case CARD_REORDER:
-			let changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
-			changedTaskboard.columns.forEach((column) => {
-				if (column.name === action.columnName) {
-					column.cards = action.cards;
-				}
-			});
+		// case CARD_REORDER:
+		// 	let changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+		// 	changedTaskboard.columns.forEach((column) => {
+		// 		if (column.name === action.columnName) {
+		// 			column.cards = action.cards;
+		// 		}
+		// 	});
+		// 	return {
+		// 		...state,
+		// 		taskboards: {
+		// 			...state.taskboards,
+		// 			[action.taskboardID]: changedTaskboard,
+		// 		},
+		// 	};
+
+		case UPDATE_CARDS:
+			//inside action =>> taskboardID, cards, columnIndex
+			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+			changedTaskboard.columns[action.columnIndex].cards = action.cards;
+
 			return {
 				...state,
 				taskboards: {
@@ -104,6 +119,19 @@ export default function items(state: ItemStore = initialState, action: Action | 
 					[action.taskboardID]: changedTaskboard,
 				},
 			};
+
+		case UPDATE_COLUMNS:
+			//inside action =>> taskboardID, columns
+			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+			changedTaskboard.columns = action.columns;
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: changedTaskboard,
+				},
+			};
+
 		default:
 			return state;
 	}

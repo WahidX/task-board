@@ -9,6 +9,8 @@ import {
 	EDIT_CARD_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
 	CARD_REORDER,
+	UPDATE_COLUMNS,
+	UPDATE_CARDS,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
@@ -16,7 +18,7 @@ import { NoteBook } from "../@types/NoteBook";
 import { setToast, toastStatus } from "../components/shared/Toast";
 import { ID } from "../@types/Global";
 import { sampleTaskBoard } from "../defaults/sample_TaskBoard";
-import { TaskBoard } from "../@types/TaskBoard";
+import { Column, TaskBoard } from "../@types/TaskBoard";
 
 export const itemLoading = (): Action => {
 	return {
@@ -206,5 +208,22 @@ export const reorderCards = (taskboardID: ID, columnName: ID, cards: Card[]) => 
 		taskboardID,
 		columnName,
 		cards,
+	};
+};
+
+export const updateCards = (taskboardID: ID, columnIndex: number, cards: Card[]) => {
+	return {
+		type: UPDATE_CARDS,
+		taskboardID,
+		cards,
+		columnIndex,
+	};
+};
+
+export const updateColumns = (taskboardID: ID, columns: Column[]) => {
+	return {
+		type: UPDATE_COLUMNS,
+		taskboardID,
+		columns,
 	};
 };
