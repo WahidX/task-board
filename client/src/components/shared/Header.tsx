@@ -14,12 +14,19 @@ import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody } from "
 import strings from "../../strings";
 
 function Header(props) {
-	let islocal: Boolean = props.app.local;
+	let islocal: boolean = props.app.local;
 	const { onOpen, onClose, isOpen } = useDisclosure();
 
 	return (
 		<Box>
-			<Box as="div" p="3" display="flex" justifyContent="space-between" bgColor="teal" borderRadius="10px">
+			<Box
+				as="div"
+				p="3"
+				display="flex"
+				justifyContent="space-between"
+				bgColor="teal"
+				borderRadius="10px"
+			>
 				<IconButton onClick={onOpen}>
 					<AiOutlineMenu />
 				</IconButton>
@@ -28,7 +35,7 @@ function Header(props) {
 					<DrawerContent>
 						<DrawerHeader borderBottomWidth="1px">{strings.APP_NAME()}</DrawerHeader>
 						<DrawerBody>
-							<LSidebar />
+							<LSidebar onCloseHandle={onClose} />
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>

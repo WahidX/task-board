@@ -10,7 +10,7 @@ function DNDCards(props) {
 	const { colorMode } = useColorMode();
 
 	return (
-		<Draggable key={card.id as Key} draggableId={card.id} index={props.index}>
+		<Draggable key={card.id} draggableId={card.id} index={props.index}>
 			{(provided, snapshot) => (
 				<div
 					{...provided.draggableProps}

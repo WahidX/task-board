@@ -26,7 +26,6 @@ function TaskBoardContainer(props) {
 				props.dispatch(updateCards(currentItem.id, columnIndex, newCardsArr));
 			} else {
 				// moving from one column to another
-				console.log("Hello");
 				let [srcColumnIndex, srcCardsArr] = getColumnIndex(
 					currentItem.columns,
 					result.source.droppableId
@@ -67,7 +66,7 @@ function TaskBoardContainer(props) {
 						ref={provided.innerRef}
 					>
 						{currentItem.columns.map((column, index) => (
-							<ColumnComponent column={column} index={index} />
+							<ColumnComponent key={column.name} column={column} index={index} />
 						))}
 						{provided.placeholder}
 					</Grid>

@@ -11,7 +11,6 @@ import {
 	DELETE_NOTEBOOK_SUCCESS,
 	ADD_CARD_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
-	CARD_REORDER,
 	UPDATE_CARDS,
 	UPDATE_COLUMNS,
 } from "../actions/actionTypes";
@@ -20,6 +19,7 @@ const initialState: ItemStore = {
 	notebooks: {},
 	taskboards: {},
 	loading: false,
+	error: "",
 };
 
 export default function items(state: ItemStore = initialState, action: Action | any): ItemStore {
@@ -91,21 +91,6 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				},
 				loading: false,
 			};
-
-		// case CARD_REORDER:
-		// 	let changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
-		// 	changedTaskboard.columns.forEach((column) => {
-		// 		if (column.name === action.columnName) {
-		// 			column.cards = action.cards;
-		// 		}
-		// 	});
-		// 	return {
-		// 		...state,
-		// 		taskboards: {
-		// 			...state.taskboards,
-		// 			[action.taskboardID]: changedTaskboard,
-		// 		},
-		// 	};
 
 		case UPDATE_CARDS:
 			//inside action =>> taskboardID, cards, columnIndex

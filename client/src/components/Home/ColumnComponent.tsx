@@ -18,7 +18,7 @@ function ColumnComponent(props) {
 					<Text fontSize="3xl" textAlign="center" {...provided.dragHandleProps}>
 						{column.name}
 					</Text>
-					<Droppable droppableId={`${column.name}`} type="task">
+					<Droppable droppableId={`${column.name}`} key={column.name} type="task">
 						{(provided, snapshot) => (
 							<div
 								{...provided.droppableProps}
@@ -27,7 +27,7 @@ function ColumnComponent(props) {
 								style={getListStyle(snapshot.isDraggingOver)}
 							>
 								{column.cards.map((card: Card, index: number) => (
-									<DNDCards card={card} index={index} />
+									<DNDCards card={card} key={card.id} index={index} />
 								))}
 								{provided.placeholder}
 							</div>

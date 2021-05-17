@@ -19,6 +19,7 @@ export interface ItemStore {
 		[index: string]: TaskBoard;
 	};
 	loading: Boolean;
+	error: String;
 }
 
 export interface UserStore {

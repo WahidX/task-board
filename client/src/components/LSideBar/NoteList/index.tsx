@@ -20,6 +20,7 @@ function NoteList(props) {
 	let currentItem = props.app.currentItem;
 
 	let handleSelectItem = (type: AppMode, item: NoteBook | TaskBoard) => {
+		props.onCloseHandle();
 		props.dispatch(updateCurrent(type, item));
 	};
 

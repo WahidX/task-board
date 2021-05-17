@@ -8,7 +8,6 @@ import {
 	ADD_CARD_SUCCESS,
 	EDIT_CARD_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
-	CARD_REORDER,
 	UPDATE_COLUMNS,
 	UPDATE_CARDS,
 } from "./actionTypes";
@@ -199,15 +198,6 @@ export const addTaskBoard = (name: string) => {
 		// Failed
 		// dispatch(itemError(err));
 		// setToast("Error while creating a task board", toastStatus.error);
-	};
-};
-
-export const reorderCards = (taskboardID: ID, columnName: ID, cards: Card[]) => {
-	return {
-		type: CARD_REORDER,
-		taskboardID,
-		columnName,
-		cards,
 	};
 };
 

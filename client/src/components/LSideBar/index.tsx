@@ -8,7 +8,7 @@ import Quicklinks from "./Quicklinks";
 function LSidebar(props) {
 	return (
 		<VStack>
-			<NoteList />
+			<NoteList onCloseHandle={props.onCloseHandle} />
 			<Quicklinks />
 		</VStack>
 	);
