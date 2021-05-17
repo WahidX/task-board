@@ -5,7 +5,7 @@ import { CardParentType } from "../enums";
 
 // As of now name is used as ID
 // later will be replaced with db id
-export const sampleNotebook = (name: String): NoteBook => {
+export const sampleNotebook = (name: string): NoteBook => {
 	return {
 		name,
 		id: name,
@@ -14,9 +14,12 @@ export const sampleNotebook = (name: String): NoteBook => {
 	};
 };
 
-const sampleCards = (parent: String): Card[] => [sampleGroceryCard(parent), sampleAddressCard(parent)];
+const sampleCards = (parent: string): Card[] => [
+	sampleGroceryCard(parent),
+	sampleAddressCard(parent),
+];
 
-const sampleGroceryCard = (parent: String): Card => {
+const sampleGroceryCard = (parent: string): Card => {
 	let title = "Grocery List";
 	return {
 		title,
@@ -30,7 +33,7 @@ const sampleGroceryCard = (parent: String): Card => {
 	};
 };
 
-const sampleAddressCard = (parent: String): Card => {
+const sampleAddressCard = (parent: string): Card => {
 	let title = "Work Address";
 	return {
 		title,
@@ -51,7 +54,7 @@ const sampleTodo = (card: ID): Todo => {
 	};
 };
 
-let getTodoItem = (content: String, isComplete: Boolean): TodoItem => {
+let getTodoItem = (content: string, isComplete: Boolean): TodoItem => {
 	return {
 		content,
 		isComplete,

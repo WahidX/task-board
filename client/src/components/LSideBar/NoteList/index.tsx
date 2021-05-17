@@ -10,8 +10,8 @@ import { RootState } from "../../../store";
 import CustomDivider from "../../shared/CustomDivider";
 import CreateField from "./CreateField";
 
-type NoteBookArr = [String, NoteBook];
-type TaskBoardArr = [String, TaskBoard];
+type NoteBookArr = [string, NoteBook];
+type TaskBoardArr = [string, TaskBoard];
 
 function NoteList(props) {
 	let notebooks: NoteBookArr[] = Object.entries(props.notebooks);

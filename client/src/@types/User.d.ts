@@ -1,5 +1,5 @@
 export interface User {
 	id: ID;
-	name: String;
-	bio?: String;
+	name: string;
+	bio?: string;
 }

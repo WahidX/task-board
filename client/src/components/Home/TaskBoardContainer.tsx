@@ -13,7 +13,6 @@ function TaskBoardContainer(props) {
 	let currentItem: TaskBoard = props.currentItem;
 
 	let onDragEnd = (result: DropResult) => {
-		console.log("result: ", result);
 		if (!result.destination) return; // Dragged outside
 
 		if (result.type === "task") {
@@ -46,8 +45,7 @@ function TaskBoardContainer(props) {
 				props.dispatch(updateCards(currentItem.id, destColumnIndex, destCardsArr));
 			}
 		} else if (result.source.index !== result.destination.index) {
-			// column reordering
-			// we have to update
+			// type is column and its reordering
 			let newColumnArr = reorder(
 				currentItem.columns,
 				result.source.index,

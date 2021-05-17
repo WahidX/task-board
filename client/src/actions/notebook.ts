@@ -40,7 +40,7 @@ export const addNotebookSuccess = (notebook: NoteBook): AnyAction => {
 	};
 };
 
-export const addNotebook = (name: String) => {
+export const addNotebook = (name: string) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
 		//
@@ -185,7 +185,7 @@ export const addTaskBoardSuccess = (taskboard: TaskBoard) => {
 	};
 };
 
-export const addTaskBoard = (name: String) => {
+export const addTaskBoard = (name: string) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
 		//

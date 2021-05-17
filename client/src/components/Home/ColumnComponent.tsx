@@ -1,24 +1,18 @@
 import { Text } from "@chakra-ui/react";
-import React from "react";
-import { Draggable, Droppable, DropResult } from "react-beautiful-dnd";
+import React, { Key } from "react";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { Card } from "../../@types/Card";
 import { Column } from "../../@types/TaskBoard";
 import { RootState } from "../../store";
 import DNDCards from "./DNDCards";
+import { getListStyle } from "./taskboardStyle";
 
 function ColumnComponent(props) {
 	let column: Column = props.column;
 
-	// let onDragEnd = (result: DropResult) => {
-	// 	if (!result.destination) return;
-
-	// 	const cards = reorder(column.cards, result.source.index, result.destination.index);
-	// 	props.dispatch(reorderCards(props.app.currentItem.id, column.name, cards));
-	// };
-	console.log(column.name, props.index);
 	return (
-		<Draggable draggableId={`${column.name}`} key={column.name as key} index={props.index}>
+		<Draggable draggableId={`${column.name}`} key={column.name as Key} index={props.index}>
 			{(provided) => (
 				<div {...provided.draggableProps} ref={provided.innerRef}>
 					<Text fontSize="3xl" textAlign="center" {...provided.dragHandleProps}>
@@ -29,7 +23,8 @@ function ColumnComponent(props) {
 							<div
 								{...provided.droppableProps}
 								ref={provided.innerRef}
-								isDraggingOver={snapshot.isDraggingOver}
+								// isDraggingOver={snapshot.isDraggingOver}
+								style={getListStyle(snapshot.isDraggingOver)}
 							>
 								{column.cards.map((card: Card, index: number) => (
 									<DNDCards card={card} index={index} />

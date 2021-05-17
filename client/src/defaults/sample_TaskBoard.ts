@@ -2,7 +2,7 @@ import { Card } from "../@types/Card";
 import { Column, TaskBoard } from "../@types/TaskBoard";
 import { CardParentType } from "../enums";
 
-export const sampleTaskBoard = (name: String): TaskBoard => {
+export const sampleTaskBoard = (name: string): TaskBoard => {
 	return {
 		name,
 		id: name,
@@ -12,20 +12,24 @@ export const sampleTaskBoard = (name: String): TaskBoard => {
 	};
 };
 
-const sampleColumns = (parent: String): Column[] => {
+const sampleColumns = (parent: string): Column[] => {
 	return [sampleColumnTodos(parent), sampleColumnInprogress(parent), sampleColumnDone(parent)];
 };
 
-const sampleColumnTodos = (parent: String): Column => {
+const sampleColumnTodos = (parent: string): Column => {
 	let name = "Todos";
 	return {
 		name,
 		taskboard: parent,
-		cards: [getCard(name, "Study for Physics Test"), getCard(name, "Practice Mechanics"), getCard(name, "Start Creating your own cards")],
+		cards: [
+			getCard(name, "Study for Physics Test"),
+			getCard(name, "Practice Mechanics"),
+			getCard(name, "Start Creating your own cards"),
+		],
 	};
 };
 
-const sampleColumnInprogress = (parent: String): Column => {
+const sampleColumnInprogress = (parent: string): Column => {
 	let name = "In Progress";
 	return {
 		name,
@@ -34,7 +38,7 @@ const sampleColumnInprogress = (parent: String): Column => {
 	};
 };
 
-const sampleColumnDone = (parent: String): Column => {
+const sampleColumnDone = (parent: string): Column => {
 	let name = "Done";
 	return {
 		name,
@@ -43,7 +47,7 @@ const sampleColumnDone = (parent: String): Column => {
 	};
 };
 
-const getCard = (parent: String, title: String): Card => {
+const getCard = (parent: string, title: string): Card => {
 	return {
 		title,
 		id: title,

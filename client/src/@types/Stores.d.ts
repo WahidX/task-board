@@ -6,7 +6,7 @@ export interface AppStore {
 	local: Boolean;
 	mode: AppMode;
 	currentItem: unknown | NoteBook | TaskBoard; // have to check
-	error: String;
+	error: string;
 	loading: Boolean;
 	config: Object;
 }
@@ -23,7 +23,7 @@ export interface ItemStore {
 
 export interface UserStore {
 	// profile?: UserProfile;
-	error: String;
+	error: string;
 	isLoggedin: Boolean;
 	loading: Boolean;
 }

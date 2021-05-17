@@ -1,13 +1,13 @@
 export interface TaskBoard {
 	id: ID;
-	name: String;
-	description: String;
+	name: string;
+	description: string;
 	columns: Column[];
 	lastUpd: Date;
 }
 
 export interface Column {
-	name: String;
-	taskboard: String;
+	name: string;
+	taskboard: string;
 	cards: Card[];
 }

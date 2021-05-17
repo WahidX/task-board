@@ -1,8 +1,16 @@
 import React from "react";
-import { GridItem, Input, Text, Textarea } from "@chakra-ui/react";
+import { Box, GridItem, Input, Text, Textarea } from "@chakra-ui/react";
 import { IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Modal, ModalContent, ModalOverlay, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/modal";
+import {
+	Modal,
+	ModalContent,
+	ModalOverlay,
+	ModalHeader,
+	ModalCloseButton,
+	ModalBody,
+	ModalFooter,
+} from "@chakra-ui/modal";
 import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
 import { Card } from "../../@types/Card";
 import TodoContainer from "./TodoContainer";
@@ -12,10 +20,10 @@ function Cards(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
 		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2" fontSize="md">
-			<div onClick={onOpen}>
+			<Box onClick={onOpen} p="3">
 				<Text>{card.title}</Text>
 				<Text>{card.content}</Text>
-			</div>
+			</Box>
 
 			<Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
 				<ModalOverlay />

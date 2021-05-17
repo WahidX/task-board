@@ -50,6 +50,6 @@ function mapStoreToProps(state: RootState) {
 export default connect(mapStoreToProps)(CreateField);
 
 type CreateFieldProps = {
-	type: String;
+	type: string;
 	dispatch: any;
 };

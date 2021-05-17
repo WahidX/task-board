@@ -3,8 +3,8 @@ import { ID } from "./Global";
 
 export interface Card {
 	id: ID;
-	title: String;
-	content: String;
+	title: string;
+	content: string;
 	hasTodo: Boolean;
 	todo?: Todo;
 	parentType: CardParentType;
@@ -19,7 +19,7 @@ export interface Todo {
 }
 
 export interface TodoItem {
-	content: String;
+	content: string;
 	isComplete: Boolean;
 	timestamp: Date;
 }

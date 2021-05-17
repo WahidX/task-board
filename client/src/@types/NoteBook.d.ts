@@ -1,6 +1,6 @@
 export interface NoteBook {
 	id: ID;
-	name: String;
+	name: string;
 	cards: Card[];
 	lastUpd: Date;
 }

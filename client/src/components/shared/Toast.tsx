@@ -7,7 +7,7 @@ export enum toastStatus {
 	warning = "warning",
 }
 
-export const setToast = (message: String, status: toastStatus): void => {
+export const setToast = (message: string, status: toastStatus): void => {
 	let toast = createStandaloneToast();
 
 	toast({
