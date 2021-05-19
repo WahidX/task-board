@@ -1,11 +1,24 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Box, GridItem, Input, Text, Textarea } from "@chakra-ui/react";
 import { Button, IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Modal, ModalContent, ModalOverlay, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/modal";
+import {
+	Modal,
+	ModalContent,
+	ModalOverlay,
+	ModalHeader,
+	ModalCloseButton,
+	ModalBody,
+	ModalFooter,
+} from "@chakra-ui/modal";
 import { DeleteIcon, StarIcon, AddIcon } from "@chakra-ui/icons";
 
-function CreateTodo(props) {
+import { RootState } from "../../store";
+import { addCard } from "../../actions/notebook";
+import { AppMode } from "../../reducers/app";
+
+function CreateCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [card, setCard] = useState({
 		title: "",
@@ -19,6 +32,25 @@ function CreateTodo(props) {
 		});
 	};
 
+	let createCardHandle = () => {
+		let title = card.title.trim();
+		let content = card.description.trim();
+		if (title.length === 0) return;
+
+		props.dispatch(
+			addCard({
+				title,
+				content,
+				id: title,
+				hasTodo: false,
+				parent: props.app.currentItem.name,
+				parentType: AppMode.notebook,
+				timestamp: new Date(),
+			})
+		);
+		onClose();
+	};
+
 	return (
 		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2">
 			<Box onClick={onOpen} textAlign="center">
@@ -30,7 +62,13 @@ function CreateTodo(props) {
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>
-						<Input fontSize="2xl" w="95%" placeholder="title" value={card.title} onChange={(e) => setCard({ ...card, title: e.target.value })} />
+						<Input
+							fontSize="2xl"
+							w="95%"
+							placeholder="title"
+							value={card.title}
+							onChange={(e) => setCard({ ...card, title: e.target.value })}
+						/>
 					</ModalHeader>
 					<ModalCloseButton />
 
@@ -51,7 +89,9 @@ function CreateTodo(props) {
 						<IconButton aria-label="fav-todo">
 							<StarIcon />
 						</IconButton>
-						<Button aria-label="delete-todo">Create</Button>
+						<Button onClick={createCardHandle} aria-label="delete-todo">
+							Create
+						</Button>
 					</ModalFooter>
 				</ModalContent>
 			</Modal>
@@ -59,4 +99,10 @@ function CreateTodo(props) {
 	);
 }
 
-export default CreateTodo;
+function mapStoreToProps(state: RootState) {
+	return {
+		app: state.app,
+	};
+}
+
+export default connect(mapStoreToProps)(CreateCard);

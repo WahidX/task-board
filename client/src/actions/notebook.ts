@@ -19,6 +19,7 @@ import { ID } from "../@types/Global";
 import { sampleTaskBoard } from "../defaults/sample_TaskBoard";
 import { Column, TaskBoard } from "../@types/TaskBoard";
 
+// General
 export const itemLoading = (): Action => {
 	return {
 		type: START_ITEM_LOADING,
@@ -32,6 +33,7 @@ export const itemError = (error: any): AnyAction => {
 	};
 };
 
+// Add Notebook
 export const addNotebookSuccess = (notebook: NoteBook): AnyAction => {
 	return {
 		type: ADD_NOTEBOOK_SUCCESS,
@@ -56,6 +58,7 @@ export const addNotebook = (name: string) => {
 	};
 };
 
+// Edit Notebook
 export const editNotebookSuccess = (notebook: NoteBook) => {
 	return {
 		type: EDIT_NOTEBOOK_SUCCESS,
@@ -79,6 +82,7 @@ export const editNotebook = (notebook: NoteBook) => {
 	};
 };
 
+// Delete Notebook
 export const deleteNotebookSuccess = (id: ID) => {
 	return {
 		type: DELETE_NOTEBOOK_SUCCESS,
@@ -114,12 +118,10 @@ export const addCard = (card: Card) => {
 		dispatch(itemLoading());
 
 		// For now cards adding to notebook
-		//
 		//	API call to add Card
-		//
 		// Success:
 		dispatch(addCardSuccess(card));
-		// Alert
+		setToast("Card created!", toastStatus.success);
 
 		// Failed
 		// dispatch(itemError(err));

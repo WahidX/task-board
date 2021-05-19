@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Card } from "../../@types/Card";
 import { RootState } from "../../store";
 import Cards from "./Cards";
-import CreateTodo from "./CreateTodo";
+import CreateCard from "./CreateCard";
 
 function NotebookContainer(props) {
 	let cards: Card[];
@@ -12,7 +12,7 @@ function NotebookContainer(props) {
 
 	return (
 		<Grid templateColumns="repeat(2, 1fr)" gap={6} w="100%">
-			<CreateTodo />
+			<CreateCard />
 			{cards.map((card) => (
 				<Cards key={card.id} card={card} />
 			))}

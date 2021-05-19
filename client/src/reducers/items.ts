@@ -66,21 +66,21 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				},
 			};
 
-		case ADD_CARD_SUCCESS:
-			// As of now for notebook cards
-			let cards: Card[] = state.notebooks[action.card.notebookid].cards;
-			cards = [...cards, action.card];
-			return {
-				...state,
-				notebooks: {
-					...state.notebooks,
-					[action.card.notebookid]: {
-						...state.notebooks[action.card.notebook],
-						cards,
-					},
-				},
-				loading: false,
-			};
+		// case ADD_CARD_SUCCESS:
+		// 	// As of now for notebook cards
+		// 	let cards: Card[] = state.notebooks[action.card.notebookid].cards;
+		// 	cards = [...cards, action.card];
+		// 	return {
+		// 		...state,
+		// 		notebooks: {
+		// 			...state.notebooks,
+		// 			[action.card.notebookid]: {
+		// 				...state.notebooks[action.card.notebook],
+		// 				cards,
+		// 			},
+		// 		},
+		// 		loading: false,
+		// 	};
 
 		case ADD_TASKBOARD_SUCCESS:
 			return {

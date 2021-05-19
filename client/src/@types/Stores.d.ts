@@ -5,7 +5,7 @@ import { TaskBoard } from "./TaskBoard";
 export interface AppStore {
 	local: Boolean;
 	mode: AppMode;
-	currentItem: unknown | NoteBook | TaskBoard; // have to check
+	currentItem?: NoteBook | TaskBoard; // have to check
 	error: string;
 	loading: Boolean;
 	config: Object;

@@ -1,4 +1,4 @@
-import { CardParentType } from "../enums";
+import { AppMode } from "../reducers/app";
 import { ID } from "./Global";
 
 export interface Card {
@@ -7,7 +7,7 @@ export interface Card {
 	content: string;
 	hasTodo: Boolean;
 	todo?: Todo;
-	parentType: CardParentType;
+	parentType: AppMode;
 	parent: ID;
 	timestamp: Date;
 }

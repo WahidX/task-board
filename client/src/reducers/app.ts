@@ -1,6 +1,6 @@
-import { Action } from "redux";
+import { AnyAction } from "redux";
 import { AppStore } from "../@types/Stores";
-import { UPDATE_CURRENT_ITEM } from "../actions/actionTypes";
+import { ADD_CARD_SUCCESS, UPDATE_CURRENT_ITEM } from "../actions/actionTypes";
 
 export enum AppMode {
 	notebook = "notebook",
@@ -10,13 +10,13 @@ export enum AppMode {
 const initialState: AppStore = {
 	local: true,
 	mode: AppMode.notebook,
-	currentItem: null,
+	// currentItem: null,
 	loading: false,
 	error: "",
 	config: {},
 };
 
-export default function app(state = initialState, action: Action) {
+export default function app(state = initialState, action: AnyAction) {
 	switch (action.type) {
 		case UPDATE_CURRENT_ITEM:
 			return {
@@ -24,6 +24,26 @@ export default function app(state = initialState, action: Action) {
 				mode: action.mode,
 				currentItem: action.item,
 			};
+
+		case ADD_CARD_SUCCESS:
+			let updatedCurrentItem = state.currentItem;
+			if (!updatedCurrentItem) return state;
+
+			if (state.mode === AppMode.notebook) {
+				// @ts-ignore
+				updatedCurrentItem.cards.push(action.card);
+			} else {
+				// @ts-ignore
+				if (updatedCurrentItem.columns[action.card.parent])
+					// @ts-ignore
+					updatedCurrentItem.columns[action.card.parent].push(action.card);
+			}
+
+			return {
+				...state,
+				currentItem: updatedCurrentItem,
+			};
+
 		default:
 			return state;
 	}
