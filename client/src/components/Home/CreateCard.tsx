@@ -38,15 +38,18 @@ function CreateCard(props) {
 		if (title.length === 0) return;
 
 		props.dispatch(
-			addCard({
-				title,
-				content,
-				id: title,
-				hasTodo: false,
-				parent: props.app.currentItem.name,
-				parentType: AppMode.notebook,
-				timestamp: new Date(),
-			})
+			addCard(
+				{
+					title,
+					content,
+					id: title,
+					hasTodo: false,
+					parent: props.columnName ? props.app.currentItem.name : props.columnName,
+					parentType: props.columnName ? AppMode.taskboard : AppMode.notebook,
+					timestamp: new Date(),
+				},
+				props.columnIndex
+			)
 		);
 		onClose();
 	};

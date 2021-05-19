@@ -106,21 +106,22 @@ export const deleteNotebook = (id: ID) => {
 	};
 };
 
-export const addCardSuccess = (card: Card) => {
+export const addCardSuccess = (card: Card, columnIndex?: number) => {
 	return {
 		type: ADD_CARD_SUCCESS,
 		card,
+		columnIndex,
 	};
 };
 
-export const addCard = (card: Card) => {
+export const addCard = (card: Card, columnIndex?: number) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
 
 		// For now cards adding to notebook
 		//	API call to add Card
 		// Success:
-		dispatch(addCardSuccess(card));
+		dispatch(addCardSuccess(card, columnIndex));
 		setToast("Card created!", toastStatus.success);
 
 		// Failed

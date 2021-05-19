@@ -27,6 +27,7 @@ export default function app(state = initialState, action: AnyAction) {
 
 		case ADD_CARD_SUCCESS:
 			let updatedCurrentItem = state.currentItem;
+			console.log("before: ", updatedCurrentItem);
 			if (!updatedCurrentItem) return state;
 
 			if (state.mode === AppMode.notebook) {
@@ -34,9 +35,10 @@ export default function app(state = initialState, action: AnyAction) {
 				updatedCurrentItem.cards.push(action.card);
 			} else {
 				// @ts-ignore
-				if (updatedCurrentItem.columns[action.card.parent])
+				if (updatedCurrentItem.columns[action.columnIndex])
 					// @ts-ignore
-					updatedCurrentItem.columns[action.card.parent].push(action.card);
+					updatedCurrentItem.columns[action.columnIndex].cards.push(action.card);
+				console.log(updatedCurrentItem);
 			}
 
 			return {

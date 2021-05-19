@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Card } from "../../@types/Card";
 import { Column } from "../../@types/TaskBoard";
 import { RootState } from "../../store";
+import CreateCard from "./CreateCard";
 import DNDCards from "./DNDCards";
 import { getListStyle } from "./taskboardStyle";
 
@@ -18,6 +19,7 @@ function ColumnComponent(props) {
 					<Text fontSize="3xl" textAlign="center" {...provided.dragHandleProps}>
 						{column.name}
 					</Text>
+					<CreateCard columnIndex={props.index} columnName={column.name} />
 					<Droppable droppableId={`${column.name}`} key={column.name} type="task">
 						{(provided, snapshot) => (
 							<div
