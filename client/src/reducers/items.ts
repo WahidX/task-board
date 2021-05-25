@@ -1,5 +1,4 @@
 import { Action } from "redux";
-import { Card } from "../@types/Card";
 import { ItemStore } from "../@types/Stores";
 import { TaskBoard } from "../@types/TaskBoard";
 
@@ -9,12 +8,8 @@ import {
 	ADD_NOTEBOOK_SUCCESS,
 	EDIT_NOTEBOOK_SUCCESS,
 	DELETE_NOTEBOOK_SUCCESS,
-	ADD_CARD_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
-	UPDATE_CARDS,
-	UPDATE_COLUMNS,
 	EDIT_COLUMN,
-	DELETE_COLUMN,
 } from "../actions/actionTypes";
 
 const initialState: ItemStore = {
@@ -78,31 +73,6 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				loading: false,
 			};
 
-		// case UPDATE_CARDS:
-		// 	//inside action =>> taskboardID, cards, columnIndex
-		// 	var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
-		// 	changedTaskboard.columns[action.columnIndex].cards = action.cards;
-
-		// 	return {
-		// 		...state,
-		// 		taskboards: {
-		// 			...state.taskboards,
-		// 			[action.taskboardID]: changedTaskboard,
-		// 		},
-		// 	};
-
-		// case UPDATE_COLUMNS:
-		// 	//inside action =>> taskboardID, columns
-		// 	var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
-		// 	changedTaskboard.columns = action.columns;
-		// 	return {
-		// 		...state,
-		// 		taskboards: {
-		// 			...state.taskboards,
-		// 			[action.taskboardID]: changedTaskboard,
-		// 		},
-		// 	};
-
 		case EDIT_COLUMN:
 			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
 			changedTaskboard.columns[action.columnIndex].name = action.name;
@@ -114,16 +84,6 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				},
 			};
 
-		// case DELETE_COLUMN:
-		// 	var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
-		// 	changedTaskboard.columns.splice(action.columnIndex, 1);
-		// 	return {
-		// 		...state,
-		// 		taskboards: {
-		// 			...state.taskboards,
-		// 			[action.taskboardID]: changedTaskboard,
-		// 		},
-		// 	};
 		default:
 			return state;
 	}

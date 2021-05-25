@@ -1,3 +1,4 @@
+import React from "react";
 import { Center, Divider } from "@chakra-ui/react";
 
 export default function CustomDivider(props) {

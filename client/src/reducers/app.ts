@@ -3,6 +3,7 @@ import { AppStore } from "../@types/Stores";
 import { Column } from "../@types/TaskBoard";
 import {
 	ADD_CARD_SUCCESS,
+	CLEAR_COLUMN,
 	DELETE_COLUMN,
 	UPDATE_CARDS,
 	UPDATE_COLUMNS,
@@ -85,6 +86,15 @@ export default function app(state = initialState, action: AnyAction) {
 				currentItem: {
 					...state.currentItem,
 					columns: changedColumns,
+				},
+			};
+
+		case CLEAR_COLUMN:
+			return {
+				...state,
+				currentItem: {
+					...state.currentItem,
+					columns: [],
 				},
 			};
 

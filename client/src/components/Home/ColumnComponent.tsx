@@ -1,4 +1,11 @@
-import { CheckIcon, CloseIcon, DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+	CheckIcon,
+	CloseIcon,
+	DeleteIcon,
+	EditIcon,
+	HamburgerIcon,
+	WarningTwoIcon,
+} from "@chakra-ui/icons";
 import {
 	Box,
 	HStack,
@@ -44,6 +51,8 @@ function ColumnComponent(props) {
 	};
 
 	let confirmCallback = (confirmed: boolean) => {
+		console.log(confirmed);
+
 		if (confirmed) props.dispatch(deleteColumn(props.app.currentItem.id, props.index));
 		setOpenDeleteConfirm(false);
 	};
@@ -116,6 +125,17 @@ function ColumnComponent(props) {
 													message="Are you sure?"
 													callback={confirmCallback}
 												/>
+											</MenuItem>
+											<MenuItem
+												icon={<WarningTwoIcon />}
+												onClick={() => setOpenDeleteConfirm(true)}
+											>
+												Clear cards
+												{/* <ConfirmationDialog
+													open={openDeleteConfirm}
+													message="Are you sure?"
+													callback={confirmCallback}
+												/> */}
 											</MenuItem>
 										</MenuList>
 									</Menu>

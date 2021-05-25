@@ -9,6 +9,8 @@ import {
 import React from "react";
 
 function ConfirmationDialog({ open, message, callback }: ConfirmationDialogProps) {
+	// console.log(callback);
+
 	let isOpen = open;
 	// const onClose = () => setIsOpen(false);
 	const cancelRef = React.useRef();
@@ -61,6 +63,7 @@ function ConfirmationDialog({ open, message, callback }: ConfirmationDialogProps
 interface ConfirmationDialogProps {
 	open: boolean;
 	message: string;
+	// type: string;
 	callback: Function;
 }
 
