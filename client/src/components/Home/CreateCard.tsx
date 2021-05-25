@@ -18,18 +18,17 @@ import { RootState } from "../../store";
 import { addCard } from "../../actions/notebook";
 import { AppMode } from "../../reducers/app";
 
+const defaultCard = {
+	title: "",
+	description: "",
+};
+
 function CreateCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [card, setCard] = useState({
-		title: "",
-		description: "",
-	});
+	const [card, setCard] = useState(defaultCard);
 
 	let resetCard = () => {
-		setCard({
-			title: "",
-			description: "",
-		});
+		setCard(defaultCard);
 	};
 
 	let createCardHandle = () => {
@@ -51,14 +50,15 @@ function CreateCard(props) {
 				props.columnIndex
 			)
 		);
+		resetCard();
 		onClose();
 	};
 
 	return (
-		<GridItem border="solid 1px grey" w="100%" borderRadius="lg" p="2">
+		<GridItem w={props.columnName ? "" : "100%"} borderRadius="lg">
 			<Box onClick={onOpen} textAlign="center">
 				<AddIcon />
-				<Text>Create New</Text>
+				{!props.columnName && <Text>Create New</Text>}
 			</Box>
 
 			<Modal onClose={onClose} size={"xl"} isOpen={isOpen}>

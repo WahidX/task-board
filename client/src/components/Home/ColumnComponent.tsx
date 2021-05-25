@@ -1,4 +1,5 @@
-import { Text } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import { Box, IconButton } from "@chakra-ui/react";
 import React, { Key } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
@@ -15,17 +16,31 @@ function ColumnComponent(props) {
 	return (
 		<Draggable draggableId={`${column.name}`} key={column.name as Key} index={props.index}>
 			{(provided) => (
-				<div {...provided.draggableProps} ref={provided.innerRef}>
-					<Text fontSize="3xl" textAlign="center" {...provided.dragHandleProps}>
+				<Box margin="15px" {...provided.draggableProps} ref={provided.innerRef}>
+					<Box
+						fontSize="3xl"
+						display="flex"
+						justifyContent="space-between"
+						{...provided.dragHandleProps}
+						p="2"
+					>
 						{column.name}
-					</Text>
-					<CreateCard columnIndex={props.index} columnName={column.name} />
+
+						<Box>
+							<IconButton aria-label="create card" size="sm" variant="ghost">
+								<CreateCard columnIndex={props.index} columnName={column.name} />
+							</IconButton>
+							<IconButton aria-label="edit column name" size="sm" variant="ghost">
+								<EditIcon />
+							</IconButton>
+						</Box>
+					</Box>
+
 					<Droppable droppableId={`${column.name}`} key={column.name} type="task">
 						{(provided, snapshot) => (
 							<div
 								{...provided.droppableProps}
 								ref={provided.innerRef}
-								// isDraggingOver={snapshot.isDraggingOver}
 								style={getListStyle(snapshot.isDraggingOver)}
 							>
 								{column.cards.map((card: Card, index: number) => (
@@ -35,7 +50,7 @@ function ColumnComponent(props) {
 							</div>
 						)}
 					</Droppable>
-				</div>
+				</Box>
 			)}
 		</Draggable>
 	);
