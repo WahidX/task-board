@@ -1,12 +1,22 @@
-import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
-import { Box, HStack, IconButton, Input } from "@chakra-ui/react";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+	Box,
+	HStack,
+	IconButton,
+	Input,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+} from "@chakra-ui/react";
 import React, { Key, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { Card } from "../../@types/Card";
 import { Column } from "../../@types/TaskBoard";
-import { editColumn } from "../../actions/notebook";
+import { deleteColumn, editColumn } from "../../actions/notebook";
 import { RootState } from "../../store";
+import ConfirmationDialog from "../shared/ConfirmationBox";
 import { setToast, toastStatus } from "../shared/Toast";
 import CreateCard from "./CreateCard";
 import DNDCards from "./DNDCards";
@@ -16,6 +26,7 @@ function ColumnComponent(props) {
 	let column: Column = props.column;
 	const [columnName, setColumnName] = useState(column.name);
 	const [editting, setEditting] = useState(false);
+	const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
 
 	let columnNameChangeHandle = () => {
 		// gathering all the column names
@@ -31,6 +42,13 @@ function ColumnComponent(props) {
 		}
 		setToast("Column already exists", toastStatus.error);
 	};
+
+	let confirmCallback = (confirmed: boolean) => {
+		if (confirmed) props.dispatch(deleteColumn(props.app.currentItem.id, props.index));
+		setOpenDeleteConfirm(false);
+	};
+
+	if (!column) return null;
 
 	return (
 		<Draggable draggableId={`${column.name}`} key={column.name as Key} index={props.index}>
@@ -49,6 +67,7 @@ function ColumnComponent(props) {
 								type="text"
 								value={columnName}
 								onChange={(e) => setColumnName(e.target.value)}
+								variant="outline"
 							/>
 						)}
 
@@ -79,14 +98,27 @@ function ColumnComponent(props) {
 									<IconButton aria-label="create card" size="sm" variant="ghost">
 										<CreateCard columnIndex={props.index} columnName={column.name} />
 									</IconButton>
-									<IconButton
-										aria-label="edit column name"
-										size="sm"
-										variant="ghost"
-										onClick={() => setEditting(!editting)}
-									>
-										<EditIcon />
-									</IconButton>
+									<Menu>
+										<MenuButton
+											as={IconButton}
+											aria-label="Options"
+											icon={<HamburgerIcon />}
+											variant="ghost"
+										/>
+										<MenuList>
+											<MenuItem icon={<EditIcon />} onClick={() => setEditting(!editting)}>
+												Edit
+											</MenuItem>
+											<MenuItem icon={<DeleteIcon />} onClick={() => setOpenDeleteConfirm(true)}>
+												Delete
+												<ConfirmationDialog
+													open={openDeleteConfirm}
+													message="Are you sure?"
+													callback={confirmCallback}
+												/>
+											</MenuItem>
+										</MenuList>
+									</Menu>
 								</HStack>
 							)}
 						</Box>

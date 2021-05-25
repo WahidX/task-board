@@ -1,6 +1,13 @@
 import { AnyAction } from "redux";
 import { AppStore } from "../@types/Stores";
-import { ADD_CARD_SUCCESS, UPDATE_CURRENT_ITEM } from "../actions/actionTypes";
+import { Column } from "../@types/TaskBoard";
+import {
+	ADD_CARD_SUCCESS,
+	DELETE_COLUMN,
+	UPDATE_CARDS,
+	UPDATE_COLUMNS,
+	UPDATE_CURRENT_ITEM,
+} from "../actions/actionTypes";
 
 export enum AppMode {
 	notebook = "notebook",
@@ -44,6 +51,41 @@ export default function app(state = initialState, action: AnyAction) {
 			return {
 				...state,
 				currentItem: updatedCurrentItem,
+			};
+
+		case UPDATE_CARDS:
+			// @ts-ignore
+			var changedColumns: Column[] = state.currentItem.columns;
+			changedColumns[action.columnIndex].cards = action.cards;
+
+			return {
+				...state,
+				currentItem: {
+					...state.currentItem,
+					columns: changedColumns,
+				},
+			};
+
+		case UPDATE_COLUMNS:
+			return {
+				...state,
+				currentItem: {
+					...state.currentItem,
+					columns: action.columns,
+				},
+			};
+
+		case DELETE_COLUMN:
+			// @ts-ignore
+			var changedColumns: Column[] = state.currentItem.columns;
+			changedColumns.splice(action.columnIndex, 1);
+
+			return {
+				...state,
+				currentItem: {
+					...state.currentItem,
+					columns: changedColumns,
+				},
 			};
 
 		default:

@@ -11,6 +11,7 @@ import {
 	UPDATE_COLUMNS,
 	UPDATE_CARDS,
 	EDIT_COLUMN,
+	DELETE_COLUMN,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
@@ -228,5 +229,13 @@ export const editColumn = (taskboardID: ID, columnIndex: number, name: string) =
 		taskboardID,
 		columnIndex,
 		name,
+	};
+};
+
+export const deleteColumn = (taskboardID: ID, columnIndex: number) => {
+	return {
+		type: DELETE_COLUMN,
+		taskboardID,
+		columnIndex,
 	};
 };

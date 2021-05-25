@@ -14,6 +14,7 @@ import {
 	UPDATE_CARDS,
 	UPDATE_COLUMNS,
 	EDIT_COLUMN,
+	DELETE_COLUMN,
 } from "../actions/actionTypes";
 
 const initialState: ItemStore = {
@@ -67,22 +68,6 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				},
 			};
 
-		// case ADD_CARD_SUCCESS:
-		// 	// As of now for notebook cards
-		// 	let cards: Card[] = state.notebooks[action.card.notebookid].cards;
-		// 	cards = [...cards, action.card];
-		// 	return {
-		// 		...state,
-		// 		notebooks: {
-		// 			...state.notebooks,
-		// 			[action.card.notebookid]: {
-		// 				...state.notebooks[action.card.notebook],
-		// 				cards,
-		// 			},
-		// 		},
-		// 		loading: false,
-		// 	};
-
 		case ADD_TASKBOARD_SUCCESS:
 			return {
 				...state,
@@ -93,30 +78,30 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				loading: false,
 			};
 
-		case UPDATE_CARDS:
-			//inside action =>> taskboardID, cards, columnIndex
-			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
-			changedTaskboard.columns[action.columnIndex].cards = action.cards;
+		// case UPDATE_CARDS:
+		// 	//inside action =>> taskboardID, cards, columnIndex
+		// 	var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+		// 	changedTaskboard.columns[action.columnIndex].cards = action.cards;
 
-			return {
-				...state,
-				taskboards: {
-					...state.taskboards,
-					[action.taskboardID]: changedTaskboard,
-				},
-			};
+		// 	return {
+		// 		...state,
+		// 		taskboards: {
+		// 			...state.taskboards,
+		// 			[action.taskboardID]: changedTaskboard,
+		// 		},
+		// 	};
 
-		case UPDATE_COLUMNS:
-			//inside action =>> taskboardID, columns
-			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
-			changedTaskboard.columns = action.columns;
-			return {
-				...state,
-				taskboards: {
-					...state.taskboards,
-					[action.taskboardID]: changedTaskboard,
-				},
-			};
+		// case UPDATE_COLUMNS:
+		// 	//inside action =>> taskboardID, columns
+		// 	var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+		// 	changedTaskboard.columns = action.columns;
+		// 	return {
+		// 		...state,
+		// 		taskboards: {
+		// 			...state.taskboards,
+		// 			[action.taskboardID]: changedTaskboard,
+		// 		},
+		// 	};
 
 		case EDIT_COLUMN:
 			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
@@ -129,6 +114,16 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				},
 			};
 
+		// case DELETE_COLUMN:
+		// 	var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+		// 	changedTaskboard.columns.splice(action.columnIndex, 1);
+		// 	return {
+		// 		...state,
+		// 		taskboards: {
+		// 			...state.taskboards,
+		// 			[action.taskboardID]: changedTaskboard,
+		// 		},
+		// 	};
 		default:
 			return state;
 	}

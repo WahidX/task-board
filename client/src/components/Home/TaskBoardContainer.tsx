@@ -50,10 +50,11 @@ function TaskBoardContainer(props) {
 				result.source.index,
 				result.destination.index
 			);
-			console.log(newColumnArr);
 			props.dispatch(updateColumns(props.app.currentItem.id, newColumnArr));
 		}
 	};
+
+	console.log("Columns: ", currentItem.columns);
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
@@ -65,9 +66,10 @@ function TaskBoardContainer(props) {
 						{...provided.droppableProps}
 						ref={provided.innerRef}
 					>
-						{currentItem.columns.map((column, index) => (
-							<ColumnComponent key={column.name} column={column} index={index} />
-						))}
+						{currentItem.columns.length !== 0 &&
+							currentItem.columns.map((column, index) => (
+								<ColumnComponent key={column.name} column={column} index={index} />
+							))}
 						{provided.placeholder}
 					</Grid>
 				)}
