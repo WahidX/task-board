@@ -10,6 +10,7 @@ import {
 	ADD_TASKBOARD_SUCCESS,
 	UPDATE_COLUMNS,
 	UPDATE_CARDS,
+	EDIT_COLUMN,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
@@ -218,5 +219,14 @@ export const updateColumns = (taskboardID: ID, columns: Column[]) => {
 		type: UPDATE_COLUMNS,
 		taskboardID,
 		columns,
+	};
+};
+
+export const editColumn = (taskboardID: ID, columnIndex: number, name: string) => {
+	return {
+		type: EDIT_COLUMN,
+		taskboardID,
+		columnIndex,
+		name,
 	};
 };

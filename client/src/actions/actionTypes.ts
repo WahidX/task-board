@@ -1,6 +1,7 @@
 // TaskBoard
 export const ADD_TASKBOARD_SUCCESS = "ADD_TASKBOARD_SUCCESS";
 export const UPDATE_COLUMNS = "UPDATE_COLUMNS";
+export const EDIT_COLUMN = "EDIT_COLUMN";
 
 // Notebook
 export const ADD_NOTEBOOK_SUCCESS = "ADD_NOTEBOOK_SUCCESS";

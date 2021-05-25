@@ -13,6 +13,7 @@ import {
 	ADD_TASKBOARD_SUCCESS,
 	UPDATE_CARDS,
 	UPDATE_COLUMNS,
+	EDIT_COLUMN,
 } from "../actions/actionTypes";
 
 const initialState: ItemStore = {
@@ -109,6 +110,17 @@ export default function items(state: ItemStore = initialState, action: Action | 
 			//inside action =>> taskboardID, columns
 			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
 			changedTaskboard.columns = action.columns;
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: changedTaskboard,
+				},
+			};
+
+		case EDIT_COLUMN:
+			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+			changedTaskboard.columns[action.columnIndex].name = action.name;
 			return {
 				...state,
 				taskboards: {
