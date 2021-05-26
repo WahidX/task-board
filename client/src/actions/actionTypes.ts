@@ -4,6 +4,7 @@ export const UPDATE_COLUMNS = "UPDATE_COLUMNS";
 export const EDIT_COLUMN = "EDIT_COLUMN";
 export const DELETE_COLUMN = "DELETE_COLUMN";
 export const CLEAR_CARDS = "CLEAR_CARDS";
+export const ADD_COLUMN = "ADD_COLUMN";
 
 // Notebook
 export const ADD_NOTEBOOK_SUCCESS = "ADD_NOTEBOOK_SUCCESS";

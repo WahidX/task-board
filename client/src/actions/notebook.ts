@@ -13,6 +13,7 @@ import {
 	EDIT_COLUMN,
 	DELETE_COLUMN,
 	CLEAR_CARDS,
+	ADD_COLUMN,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
@@ -245,5 +246,12 @@ export const clearCards = (columnIndex: number) => {
 	return {
 		type: CLEAR_CARDS,
 		columnIndex,
+	};
+};
+
+export const addColumn = (name: string) => {
+	return {
+		type: ADD_COLUMN,
+		name,
 	};
 };

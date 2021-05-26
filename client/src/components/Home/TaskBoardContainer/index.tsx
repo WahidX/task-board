@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/layout";
+import { Grid, HStack } from "@chakra-ui/layout";
 import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { connect } from "react-redux";
@@ -8,6 +8,7 @@ import { updateCards, updateColumns } from "../../../actions/notebook";
 import { reorder, getColumnIndex } from "../../../helpers/DND_Utils";
 import { RootState } from "../../../store";
 import ColumnComponent from "./ColumnComponent";
+import CreateColumn from "./CreateColumn";
 
 function TaskBoardContainer(props) {
 	let currentItem: TaskBoard = props.currentItem;
@@ -50,36 +51,40 @@ function TaskBoardContainer(props) {
 				result.source.index,
 				result.destination.index
 			);
-			props.dispatch(updateColumns(props.app.currentItem.id, newColumnArr));
+			props.dispatch(updateColumns(currentItem.id, newColumnArr));
 		}
 	};
 
 	return (
-		<DragDropContext onDragEnd={onDragEnd}>
-			<Droppable droppableId="all-columns" direction="horizontal" type="column">
-				{(provided) => (
-					<Grid
-						templateColumns="repeat(5, 1fr)"
-						gap="3"
-						{...provided.droppableProps}
-						ref={provided.innerRef}
-					>
-						{currentItem.columns.length !== 0 &&
-							currentItem.columns.map((column, index) => (
-								<ColumnComponent key={column.name} column={column} index={index} />
-							))}
-						{provided.placeholder}
-					</Grid>
-				)}
-			</Droppable>
-		</DragDropContext>
+		<HStack align="start" margin="30">
+			<DragDropContext onDragEnd={onDragEnd}>
+				<Droppable droppableId="all-columns" direction="horizontal" type="column">
+					{(provided) => (
+						<Grid
+							templateColumns="repeat(5, 1fr)"
+							gap="3"
+							autoFlow="column"
+							{...provided.droppableProps}
+							ref={provided.innerRef}
+						>
+							{currentItem.columns.length !== 0 &&
+								currentItem.columns.map((column, index) => (
+									<ColumnComponent key={column.name} column={column} index={index} />
+								))}
+							{provided.placeholder}
+						</Grid>
+					)}
+				</Droppable>
+			</DragDropContext>
+
+			<CreateColumn />
+		</HStack>
 	);
 }
 
 function mapStoreToProps(state: RootState) {
 	return {
 		currentItem: state.app.currentItem,
-		app: state.app,
 	};
 }
 

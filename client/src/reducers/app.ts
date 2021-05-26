@@ -3,6 +3,7 @@ import { AppStore } from "../@types/Stores";
 import { Column } from "../@types/TaskBoard";
 import {
 	ADD_CARD_SUCCESS,
+	ADD_COLUMN,
 	CLEAR_CARDS,
 	DELETE_COLUMN,
 	UPDATE_CARDS,
@@ -98,6 +99,21 @@ export default function app(state = initialState, action: AnyAction) {
 				currentItem: {
 					...state.currentItem,
 					columns: changedColumns,
+				},
+			};
+
+		case ADD_COLUMN:
+			var newColumn: Column = {
+				name: action.name,
+				taskboard: state.currentItem?.id,
+				cards: [],
+			};
+			return {
+				...state,
+				currentItem: {
+					...state.currentItem,
+					// @ts-ignore
+					columns: [...state.currentItem.columns, newColumn],
 				},
 			};
 
