@@ -12,7 +12,7 @@ import {
 	UPDATE_CARDS,
 	EDIT_COLUMN,
 	DELETE_COLUMN,
-	CLEAR_COLUMN,
+	CLEAR_CARDS,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
@@ -241,9 +241,9 @@ export const deleteColumn = (taskboardID: ID, columnIndex: number) => {
 	};
 };
 
-export const clearColumn = (columnIndex: number) => {
+export const clearCards = (columnIndex: number) => {
 	return {
-		type: CLEAR_COLUMN,
+		type: CLEAR_CARDS,
 		columnIndex,
 	};
 };

@@ -34,7 +34,7 @@ function TaskBoardContainer(props) {
 				let movingCard: Card = currentItem.columns[srcColumnIndex].cards[result.source.index];
 				srcCardsArr.splice(result.source.index, 1);
 				props.dispatch(updateCards(currentItem.id, srcColumnIndex, srcCardsArr));
-				console.log("moving: ", movingCard.id);
+
 				// insertion
 				let [destColumnIndex, destCardsArr] = getColumnIndex(
 					currentItem.columns,
@@ -53,8 +53,6 @@ function TaskBoardContainer(props) {
 			props.dispatch(updateColumns(props.app.currentItem.id, newColumnArr));
 		}
 	};
-
-	console.log("Columns: ", currentItem.columns);
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>

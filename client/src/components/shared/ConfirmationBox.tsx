@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-function ConfirmationDialog({ open, message, callback }: ConfirmationDialogProps) {
+function ConfirmationDialog({ open, type, message, callback }: ConfirmationDialogProps) {
 	// console.log(callback);
 
 	let isOpen = open;
@@ -20,50 +20,44 @@ function ConfirmationDialog({ open, message, callback }: ConfirmationDialogProps
 	};
 
 	return (
-		<>
-			{/* <Button colorScheme="red" onClick={() => setIsOpen(true)}>
-				Delete Customer
-			</Button> */}
+		<AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+			<AlertDialogOverlay>
+				<AlertDialogContent>
+					<AlertDialogBody fontSize="lg" fontWeight="bold">
+						{message}
+					</AlertDialogBody>
 
-			<AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
-				<AlertDialogOverlay>
-					<AlertDialogContent>
-						<AlertDialogBody fontSize="lg" fontWeight="bold">
-							{message}
-						</AlertDialogBody>
-
-						<AlertDialogFooter>
-							<Button
-								ref={cancelRef}
-								onClick={() => {
-									onClose();
-									callback(false);
-								}}
-							>
-								Cancel
-							</Button>
-							<Button
-								colorScheme="red"
-								onClick={() => {
-									onClose();
-									callback(true);
-								}}
-								ml={3}
-							>
-								Confirm
-							</Button>
-						</AlertDialogFooter>
-					</AlertDialogContent>
-				</AlertDialogOverlay>
-			</AlertDialog>
-		</>
+					<AlertDialogFooter>
+						<Button
+							ref={cancelRef}
+							onClick={() => {
+								onClose();
+								callback(type, false);
+							}}
+						>
+							Cancel
+						</Button>
+						<Button
+							colorScheme="red"
+							onClick={() => {
+								onClose();
+								callback(type, true);
+							}}
+							ml={3}
+						>
+							Confirm
+						</Button>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialogOverlay>
+		</AlertDialog>
 	);
 }
 
 interface ConfirmationDialogProps {
 	open: boolean;
 	message: string;
-	// type: string;
+	type: string;
 	callback: Function;
 }
 

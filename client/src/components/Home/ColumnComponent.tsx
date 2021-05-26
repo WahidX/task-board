@@ -21,7 +21,7 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { Card } from "../../@types/Card";
 import { Column } from "../../@types/TaskBoard";
-import { deleteColumn, editColumn } from "../../actions/notebook";
+import { clearCards, deleteColumn, editColumn } from "../../actions/notebook";
 import { RootState } from "../../store";
 import ConfirmationDialog from "../shared/ConfirmationBox";
 import { setToast, toastStatus } from "../shared/Toast";
@@ -33,7 +33,10 @@ function ColumnComponent(props) {
 	let column: Column = props.column;
 	const [columnName, setColumnName] = useState(column.name);
 	const [editting, setEditting] = useState(false);
+
+	// For confirmation dialogs
 	const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
+	const [openClearAllConfirm, setOpenClearAllConfirm] = useState(false);
 
 	let columnNameChangeHandle = () => {
 		// gathering all the column names
@@ -50,11 +53,17 @@ function ColumnComponent(props) {
 		setToast("Column already exists", toastStatus.error);
 	};
 
-	let confirmCallback = (confirmed: boolean) => {
-		console.log(confirmed);
-
-		if (confirmed) props.dispatch(deleteColumn(props.app.currentItem.id, props.index));
-		setOpenDeleteConfirm(false);
+	let confirmCallback = (type: string, confirmed: boolean) => {
+		switch (type) {
+			case "delete":
+				if (confirmed) props.dispatch(deleteColumn(props.app.currentItem.id, props.index));
+				setOpenDeleteConfirm(false);
+				break;
+			case "clear-all":
+				if (confirmed) props.dispatch(clearCards(props.index));
+				setOpenClearAllConfirm(false);
+				break;
+		}
 	};
 
 	if (!column) return null;
@@ -121,6 +130,7 @@ function ColumnComponent(props) {
 											<MenuItem icon={<DeleteIcon />} onClick={() => setOpenDeleteConfirm(true)}>
 												Delete
 												<ConfirmationDialog
+													type="delete"
 													open={openDeleteConfirm}
 													message="Are you sure?"
 													callback={confirmCallback}
@@ -128,14 +138,15 @@ function ColumnComponent(props) {
 											</MenuItem>
 											<MenuItem
 												icon={<WarningTwoIcon />}
-												onClick={() => setOpenDeleteConfirm(true)}
+												onClick={() => setOpenClearAllConfirm(true)}
 											>
 												Clear cards
-												{/* <ConfirmationDialog
-													open={openDeleteConfirm}
+												<ConfirmationDialog
+													type="clear-all"
+													open={openClearAllConfirm}
 													message="Are you sure?"
 													callback={confirmCallback}
-												/> */}
+												/>
 											</MenuItem>
 										</MenuList>
 									</Menu>
