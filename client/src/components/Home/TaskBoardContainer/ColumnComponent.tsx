@@ -7,7 +7,9 @@ import {
 	WarningTwoIcon,
 } from "@chakra-ui/icons";
 import {
+	Badge,
 	Box,
+	Center,
 	HStack,
 	IconButton,
 	Input,
@@ -15,6 +17,7 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
+	Text,
 } from "@chakra-ui/react";
 import React, { Key, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
@@ -72,13 +75,18 @@ function ColumnComponent(props) {
 		<Draggable draggableId={`${column.name}`} key={column.name as Key} index={props.index}>
 			{(provided) => (
 				<Box margin="15px" {...provided.draggableProps} ref={provided.innerRef}>
-					<Box
+					<Center
 						fontSize="xl"
 						display="flex"
 						justifyContent="space-between"
 						{...provided.dragHandleProps}
 						p="2"
+						bg="teal.400"
+						borderRadius="md"
 					>
+						<Badge fontSize="0.8em" colorScheme="teal" variant="subtle">
+							{column.cards.length}
+						</Badge>
 						{editting && (
 							<Input
 								fontSize="xl"
@@ -89,7 +97,7 @@ function ColumnComponent(props) {
 							/>
 						)}
 
-						{!editting && column.name}
+						<Text>{!editting && column.name}</Text>
 
 						<Box>
 							{editting ? (
@@ -153,7 +161,7 @@ function ColumnComponent(props) {
 								</HStack>
 							)}
 						</Box>
-					</Box>
+					</Center>
 
 					<Droppable droppableId={`${column.name}`} key={column.name} type="task">
 						{(provided, snapshot) => (
