@@ -3,7 +3,7 @@ import React, { Key } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { Card } from "../../@types/Card";
 import Cards from "./Cards";
-import { getItemStyle } from "./taskboardStyle";
+import { getItemStyle } from "./TaskBoardContainer/taskboardStyle";
 
 function DNDCards(props) {
 	let card: Card = props.card;

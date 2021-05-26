@@ -19,14 +19,14 @@ import {
 import React, { Key, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
-import { Card } from "../../@types/Card";
-import { Column } from "../../@types/TaskBoard";
-import { clearCards, deleteColumn, editColumn } from "../../actions/notebook";
-import { RootState } from "../../store";
-import ConfirmationDialog from "../shared/ConfirmationBox";
-import { setToast, toastStatus } from "../shared/Toast";
-import CreateCard from "./CreateCard";
-import DNDCards from "./DNDCards";
+import { Card } from "../../../@types/Card";
+import { Column } from "../../../@types/TaskBoard";
+import { clearCards, deleteColumn, editColumn } from "../../../actions/notebook";
+import { RootState } from "../../../store";
+import ConfirmationDialog from "../../shared/ConfirmationBox";
+import { setToast, toastStatus } from "../../shared/Toast";
+import CreateCard from "../CreateCard";
+import DNDCards from "../DNDCards";
 import { getListStyle } from "./taskboardStyle";
 
 function ColumnComponent(props) {

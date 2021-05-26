@@ -2,11 +2,11 @@ import { Grid } from "@chakra-ui/layout";
 import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { connect } from "react-redux";
-import { Card } from "../../@types/Card";
-import { TaskBoard } from "../../@types/TaskBoard";
-import { updateCards, updateColumns } from "../../actions/notebook";
-import { reorder, getColumnIndex } from "../../helpers/DND_Utils";
-import { RootState } from "../../store";
+import { Card } from "../../../@types/Card";
+import { TaskBoard } from "../../../@types/TaskBoard";
+import { updateCards, updateColumns } from "../../../actions/notebook";
+import { reorder, getColumnIndex } from "../../../helpers/DND_Utils";
+import { RootState } from "../../../store";
 import ColumnComponent from "./ColumnComponent";
 
 function TaskBoardContainer(props) {
