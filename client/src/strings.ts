@@ -1,5 +1,5 @@
 const strings = {
-	APP_NAME: () => "Task Board",
+	APP_NAME: () => "Handy Board",
 };
 
 export default strings;
