@@ -10,8 +10,7 @@ import TaskBoardContainer from "./TaskBoardContainer";
 function Home(props) {
 	return (
 		<Box marginTop="10">
-			<ItemDescriptor item={props.app.currentItem} />
-			{/* <Text>{props.app.currentItem ? `${props.app.currentItem.name}` : "Open an Item"}</Text> */}
+			{props.app.currentItem && <ItemDescriptor item={props.app.currentItem} />}
 			{props.app.mode === AppMode.notebook ? <NotebookContainer /> : <TaskBoardContainer />}
 		</Box>
 	);

@@ -1,7 +1,7 @@
 export interface TaskBoard {
 	id: ID;
 	name: string;
-	description: string;
+	description?: string;
 	columns: Column[];
 	lastUpd: Date;
 }

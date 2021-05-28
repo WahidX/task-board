@@ -9,6 +9,7 @@ import {
 	UPDATE_CARDS,
 	UPDATE_COLUMNS,
 	UPDATE_CURRENT_ITEM,
+	UPDATE_CURRENT_ITEM_NAME,
 } from "../actions/actionTypes";
 
 export enum AppMode {
@@ -114,6 +115,15 @@ export default function app(state = initialState, action: AnyAction) {
 					...state.currentItem,
 					// @ts-ignore
 					columns: [...state.currentItem.columns, newColumn],
+				},
+			};
+
+		case UPDATE_CURRENT_ITEM_NAME:
+			return {
+				...state,
+				currentItem: {
+					...state.currentItem,
+					name: action.name,
 				},
 			};
 
