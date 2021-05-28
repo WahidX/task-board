@@ -13,8 +13,8 @@ function NotebookContainer(props) {
 	return (
 		<Grid templateColumns="repeat(2, 1fr)" gap={6} w="100%">
 			<CreateCard />
-			{cards.map((card) => (
-				<Cards key={card.id} card={card} />
+			{cards.map((card, index) => (
+				<Cards key={card.id} card={card} index={index} />
 			))}
 		</Grid>
 	);

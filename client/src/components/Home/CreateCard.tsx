@@ -56,7 +56,7 @@ function CreateCard(props) {
 
 	return (
 		<GridItem w={props.columnName ? "" : "100%"} borderRadius="lg">
-			<Box onClick={onOpen} textAlign="center">
+			<Box id="create-card-btn" onClick={onOpen} textAlign="center">
 				<AddIcon />
 				{!props.columnName && <Text>Create New</Text>}
 			</Box>

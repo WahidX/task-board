@@ -69,6 +69,10 @@ function ColumnComponent(props) {
 		}
 	};
 
+	let createCardEventDelagation = (event: Event) => {
+		document.getElementById("create-card-btn")?.click();
+	};
+
 	if (!column) return null;
 
 	return (
@@ -121,7 +125,12 @@ function ColumnComponent(props) {
 								</HStack>
 							) : (
 								<HStack>
-									<IconButton aria-label="create card" size="sm" variant="ghost">
+									<IconButton
+										aria-label="create card"
+										size="sm"
+										variant="ghost"
+										onClick={createCardEventDelagation}
+									>
 										<CreateCard columnIndex={props.index} columnName={column.name} />
 									</IconButton>
 									<Menu>

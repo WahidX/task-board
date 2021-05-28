@@ -42,7 +42,7 @@ function CreateColumn(props) {
 	};
 
 	return (
-		<Box p="50px">
+		<Box p="30px">
 			<Popover initialFocusRef={initialFocusRef}>
 				{({ isOpen, onClose }) => (
 					<>

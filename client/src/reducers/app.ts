@@ -1,11 +1,14 @@
 import { AnyAction } from "redux";
+import { Card } from "../@types/Card";
+import { NoteBook } from "../@types/NoteBook";
 import { AppStore } from "../@types/Stores";
-import { Column } from "../@types/TaskBoard";
+import { Column, TaskBoard } from "../@types/TaskBoard";
 import {
 	ADD_CARD_SUCCESS,
 	ADD_COLUMN,
 	CLEAR_CARDS,
 	DELETE_COLUMN,
+	UPDATE_CARD,
 	UPDATE_CARDS,
 	UPDATE_COLUMNS,
 	UPDATE_CURRENT_ITEM,
@@ -125,6 +128,27 @@ export default function app(state = initialState, action: AnyAction) {
 					...state.currentItem,
 					name: action.name,
 				},
+			};
+
+		case UPDATE_CARD:
+			var changedItem;
+			if (state.mode === AppMode.notebook) {
+				// @ts-ignore
+				var changedNotebook: NoteBook = state.currentItem;
+				changedNotebook.cards[action.index] = action.card;
+				changedItem = changedNotebook;
+			} else {
+				// @ts-ignore
+				var changedTaskboard: TaskBoard = state.currentItem;
+				changedTaskboard.columns.forEach((column) => {
+					if (column.name === action.card.parent) column.cards[action.index] = action.card;
+				});
+				changedItem = changedTaskboard;
+			}
+
+			return {
+				...state,
+				currentItem: changedItem,
 			};
 
 		default:

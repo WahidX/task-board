@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 // chakra
 import { Button, IconButton } from "@chakra-ui/button";
-import { Box, Center, Heading, Text } from "@chakra-ui/layout";
+import { Box, Heading } from "@chakra-ui/layout";
 import { useDisclosure } from "@chakra-ui/hooks";
 
 import { AiOutlineMenu } from "react-icons/ai";
@@ -19,12 +19,12 @@ function Header(props) {
 
 	return (
 		<Box
-			as="div"
 			p="3"
 			display="flex"
 			justifyContent="space-between"
 			bgColor="teal"
 			borderRadius="10px"
+			overflow="hidden"
 		>
 			<IconButton aria-label="side menu button" onClick={onOpen}>
 				<AiOutlineMenu />
