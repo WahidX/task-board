@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/layout";
 import React from "react";
 import { connect } from "react-redux";
 import { AppMode } from "../../reducers/app";
@@ -9,7 +9,7 @@ import TaskBoardContainer from "./TaskBoardContainer";
 
 function Home(props) {
 	return (
-		<Box marginTop="10">
+		<Box marginTop="8" width="full">
 			{props.app.currentItem && <ItemDescriptor item={props.app.currentItem} />}
 			{props.app.mode === AppMode.notebook ? <NotebookContainer /> : <TaskBoardContainer />}
 		</Box>

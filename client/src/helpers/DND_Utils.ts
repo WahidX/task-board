@@ -19,6 +19,7 @@ export function getColumnIndex(columns: Column[], targetName: string): [number, 
 			columnIndex = index;
 			return true;
 		}
+		return false;
 	})[0].cards;
 	return [columnIndex, newCardsArr];
 }

@@ -190,7 +190,3 @@ function mapStoreToProps(state: RootState) {
 }
 
 export default connect(mapStoreToProps)(ColumnComponent);
-
-interface ColumnComponentProps {
-	column: Column;
-}

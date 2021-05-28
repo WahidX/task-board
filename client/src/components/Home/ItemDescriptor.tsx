@@ -2,9 +2,6 @@ import { EditIcon } from "@chakra-ui/icons";
 import { Badge, Box, Text } from "@chakra-ui/layout";
 import {
 	Button,
-	Editable,
-	EditableInput,
-	EditablePreview,
 	Flex,
 	IconButton,
 	Input,

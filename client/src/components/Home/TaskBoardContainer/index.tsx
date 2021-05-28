@@ -1,4 +1,4 @@
-import { Grid, HStack } from "@chakra-ui/layout";
+import { Grid, Flex } from "@chakra-ui/layout";
 import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { connect } from "react-redux";
@@ -56,14 +56,13 @@ function TaskBoardContainer(props) {
 	};
 
 	return (
-		<HStack align="start" margin="30">
+		<Flex align="start" flexDirection="row" overflowX="auto" h="80vh">
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Droppable droppableId="all-columns" direction="horizontal" type="column">
 					{(provided) => (
 						<Grid
 							templateColumns="repeat(5, 1fr)"
 							gap="3"
-							autoFlow="column"
 							{...provided.droppableProps}
 							ref={provided.innerRef}
 						>
@@ -75,10 +74,9 @@ function TaskBoardContainer(props) {
 						</Grid>
 					)}
 				</Droppable>
+				<CreateColumn />
 			</DragDropContext>
-
-			<CreateColumn />
-		</HStack>
+		</Flex>
 	);
 }
 

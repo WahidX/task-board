@@ -6,8 +6,9 @@ const grid = 8;
 export const getListStyle = (isDraggingOver: Boolean): React.CSSProperties => ({
 	background: isDraggingOver ? "#b0fbff" : "",
 	padding: grid,
-	width: 250,
-	height: "100%",
+	colorScheme: "teal",
+	width: 260,
+	height: "68vh",
 	borderRadius: "10px",
 	color: "black",
 	overflowY: "auto",
