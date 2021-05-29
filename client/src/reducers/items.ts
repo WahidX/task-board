@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { ItemStore } from "../@types/Stores";
-import { Column, TaskBoard } from "../@types/TaskBoard";
+import { TaskBoard } from "../@types/TaskBoard";
 
 import {
 	START_ITEM_LOADING,
@@ -10,9 +10,15 @@ import {
 	DELETE_NOTEBOOK_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
 	EDIT_COLUMN,
+	DELETE_COLUMN,
 	UPDATE_COLUMNS,
 	ADD_COLUMN,
+	UPDATE_CARD,
+	ADD_CARD_SUCCESS,
+	UPDATE_CARDS,
+	CLEAR_CARDS,
 } from "../actions/actionTypes";
+import { AppMode } from "./app";
 
 const initialState: ItemStore = {
 	notebooks: {},
@@ -21,8 +27,16 @@ const initialState: ItemStore = {
 	error: "",
 };
 
+/*
+	:: Order ::
+	Genarals:
+	Notebook specific
+	Taskboard specific
+	*/
+
 export default function items(state: ItemStore = initialState, action: Action | any): ItemStore {
 	switch (action.type) {
+		// Generals
 		case START_ITEM_LOADING:
 			return {
 				...state,
@@ -36,6 +50,7 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				error: action.error,
 			};
 
+		// Notebook specific
 		case ADD_NOTEBOOK_SUCCESS:
 			return {
 				...state,
@@ -75,6 +90,18 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				loading: false,
 			};
 
+		case ADD_COLUMN:
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: {
+						...state.taskboards[action.taskboardID],
+						columns: [...state.taskboards[action.taskboardID].columns, action.newColumn],
+					},
+				},
+			};
+
 		case EDIT_COLUMN:
 			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
 			changedTaskboard.columns[action.columnIndex].name = action.name;
@@ -83,6 +110,20 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				taskboards: {
 					...state.taskboards,
 					[action.taskboardID]: changedTaskboard,
+				},
+			};
+
+		case DELETE_COLUMN:
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: {
+						...state.taskboards[action.taskboardID],
+						columns: state.taskboards[action.taskboardID].columns.map((column, index) => {
+							if (index !== action.columnIndex) return column;
+						}),
+					},
 				},
 			};
 
@@ -98,19 +139,106 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				},
 			};
 
-		case ADD_COLUMN:
-			var newColumn: Column = {
-				name: action.name,
-				taskboard: action.taskboardID,
-				cards: [],
-			};
-			var changedTaskboard = state.taskboards[action.taskboardID];
-			changedTaskboard.columns.push(newColumn);
+		case ADD_CARD_SUCCESS:
+			if (action.columnIndex)
+				return {
+					...state,
+					taskboards: {
+						...state.taskboards,
+						[action.itemID]: {
+							...state.taskboards[action.itemID],
+							columns: state.taskboards[action.itemID].columns.map((column, index) => {
+								if (index === action.columnIndex) {
+									return {
+										...column,
+										cards: [action.card, ...column.cards],
+									};
+								} else return column;
+							}),
+						},
+					},
+				};
+			else
+				return {
+					...state,
+					notebooks: {
+						...state.notebooks,
+						[action.itemID]: {
+							...state.notebooks[action.itemID],
+							cards: [action.card, ...state.notebooks[action.itemID].cards],
+						},
+					},
+				};
+
+		case UPDATE_CARD:
+			if (action.mode === AppMode.taskboard)
+				return {
+					...state,
+					taskboards: {
+						...state.taskboards,
+						[action.itemID]: {
+							...state.taskboards[action.itemID],
+							columns: state.taskboards[action.itemID].columns.map((column, index) => {
+								if (index === action.card.parent) {
+									let newCards = column.cards;
+									newCards[action.index] = action.card;
+									return {
+										...column,
+										cards: newCards,
+									};
+								} else return column;
+							}),
+						},
+					},
+				};
+			else
+				return {
+					...state,
+					notebooks: {
+						...state.notebooks,
+						[action.itemID]: {
+							...state.notebooks[action.itemID],
+							cards: state.notebooks[action.itemID].cards.map((card, index) => {
+								if (index === action.index) return action.card;
+								else return card;
+							}),
+						},
+					},
+				};
+
+		case UPDATE_CARDS: // Card reordering
 			return {
 				...state,
 				taskboards: {
 					...state.taskboards,
-					[action.taskboardID]: changedTaskboard,
+					[action.taskboardID]: {
+						columns: state.taskboards[action.taskboardID].columns.map((column, index) => {
+							if (index === action.columnIndex) {
+								return {
+									...column,
+									cards: action.cards,
+								};
+							} else return column;
+						}),
+					},
+				},
+			};
+
+		case CLEAR_CARDS:
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: {
+						columns: state.taskboards[action.taskboardID].columns.map((column, index) => {
+							if (index === action.columnIndex)
+								return {
+									...column,
+									cards: [],
+								};
+							else return column;
+						}),
+					},
 				},
 			};
 
