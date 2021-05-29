@@ -65,8 +65,16 @@ function CreateCard(props) {
 				}}
 				textAlign="center"
 			>
-				<AddIcon />
-				{!props.columnName && <Text>Create New</Text>}
+				{props.app.mode === AppMode.notebook ? (
+					<>
+						<AddIcon />
+						<Text>Create New</Text>
+					</>
+				) : (
+					<IconButton aria-label="create card" variant="ghost">
+						<AddIcon />
+					</IconButton>
+				)}
 			</Box>
 
 			<Modal onClose={onClose} size={"xl"} isOpen={isOpen}>

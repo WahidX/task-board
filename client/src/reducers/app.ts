@@ -49,7 +49,6 @@ export default function app(state = initialState, action: AnyAction) {
 				if (updatedCurrentItem.columns[action.columnIndex])
 					// @ts-ignore
 					updatedCurrentItem.columns[action.columnIndex].cards.push(action.card);
-				console.log(updatedCurrentItem);
 			}
 
 			return {

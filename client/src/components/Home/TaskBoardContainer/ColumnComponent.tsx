@@ -125,14 +125,14 @@ function ColumnComponent(props) {
 								</HStack>
 							) : (
 								<HStack>
-									<IconButton
+									{/* <IconButton
 										aria-label="create card"
 										size="sm"
 										variant="ghost"
 										onClick={createCardEventDelagation}
-									>
-										<CreateCard columnIndex={props.index} columnName={column.name} />
-									</IconButton>
+									> */}
+									<CreateCard columnIndex={props.index} columnName={column.name} />
+									{/* </IconButton> */}
 									<Menu>
 										<MenuButton
 											as={IconButton}
