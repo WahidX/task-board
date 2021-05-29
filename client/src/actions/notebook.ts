@@ -48,17 +48,8 @@ export const addNotebookSuccess = (notebook: NoteBook): AnyAction => {
 export const addNotebook = (name: string) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
-		//
-		//	API call to add NoteBook
-		//
-		// Success:
 		dispatch(addNotebookSuccess(sampleNotebook(name)));
 		setToast("Notebook created!", toastStatus.success);
-		// Alert
-
-		// Failed
-		// dispatch(itemError(err));
-		// setToast("Error while creating a notebook", toastStatus.error);
 	};
 };
 
@@ -121,16 +112,8 @@ export const addCardSuccess = (card: Card, columnIndex?: number) => {
 export const addCard = (card: Card, columnIndex?: number) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
-
-		// For now cards adding to notebook
-		//	API call to add Card
-		// Success:
 		dispatch(addCardSuccess(card, columnIndex));
 		setToast("Card created!", toastStatus.success);
-
-		// Failed
-		// dispatch(itemError(err));
-		// alert err
 	};
 };
 
@@ -145,17 +128,7 @@ export const editCard = (card: Card) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
 
-		// For now cards adding to notebook
-		//
-		//	API call to add Card
-		//
-		// Success:
 		dispatch(editCardSuccess(card));
-		// Alert
-
-		// Failed
-		// dispatch(itemError(err));
-		// alert err
 	};
 };
 
@@ -169,18 +142,7 @@ export const deleteCardSuccess = (id: ID) => {
 export const deleteCard = (id: ID) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
-
-		// For now cards adding to notebook
-		//
-		//	API call to add Card
-		//
-		// Success:
 		dispatch(deleteCardSuccess(id));
-		// Alert
-
-		// Failed
-		// dispatch(itemError(err));
-		// alert err
 	};
 };
 
@@ -194,17 +156,8 @@ export const addTaskBoardSuccess = (taskboard: TaskBoard) => {
 export const addTaskBoard = (name: string) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
-		//
-		//	API call to add NoteBook
-		//
-		// Success:
 		dispatch(addTaskBoardSuccess(sampleTaskBoard(name)));
 		setToast("TaskBoard created!", toastStatus.success);
-		// Alert
-
-		// Failed
-		// dispatch(itemError(err));
-		// setToast("Error while creating a task board", toastStatus.error);
 	};
 };
 

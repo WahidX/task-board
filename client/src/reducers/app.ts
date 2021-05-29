@@ -1,5 +1,4 @@
 import { AnyAction } from "redux";
-import { Card } from "../@types/Card";
 import { NoteBook } from "../@types/NoteBook";
 import { AppStore } from "../@types/Stores";
 import { Column, TaskBoard } from "../@types/TaskBoard";
@@ -40,7 +39,6 @@ export default function app(state = initialState, action: AnyAction) {
 
 		case ADD_CARD_SUCCESS:
 			let updatedCurrentItem = state.currentItem;
-			console.log("before: ", updatedCurrentItem);
 			if (!updatedCurrentItem) return state;
 
 			if (state.mode === AppMode.notebook) {

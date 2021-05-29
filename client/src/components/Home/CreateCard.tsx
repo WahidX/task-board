@@ -17,6 +17,7 @@ import { DeleteIcon, StarIcon, AddIcon } from "@chakra-ui/icons";
 import { RootState } from "../../store";
 import { addCard } from "../../actions/notebook";
 import { AppMode } from "../../reducers/app";
+import { v1 } from "uuid";
 
 const defaultCard = {
 	title: "",
@@ -39,9 +40,9 @@ function CreateCard(props) {
 		props.dispatch(
 			addCard(
 				{
+					id: v1(),
 					title,
 					content,
-					id: title,
 					hasTodo: false,
 					parent: props.columnName ? props.app.currentItem.name : props.columnName,
 					parentType: props.columnName ? AppMode.taskboard : AppMode.notebook,
@@ -56,7 +57,14 @@ function CreateCard(props) {
 
 	return (
 		<GridItem w={props.columnName ? "" : "100%"} borderRadius="lg">
-			<Box id="create-card-btn" onClick={onOpen} textAlign="center">
+			<Box
+				id="create-card-btn"
+				onClick={(e) => {
+					e.stopPropagation();
+					onOpen();
+				}}
+				textAlign="center"
+			>
 				<AddIcon />
 				{!props.columnName && <Text>Create New</Text>}
 			</Box>
@@ -92,7 +100,7 @@ function CreateCard(props) {
 						<IconButton aria-label="fav-todo">
 							<StarIcon />
 						</IconButton>
-						<Button onClick={createCardHandle} aria-label="delete-todo">
+						<Button onClick={createCardHandle} aria-label="create card">
 							Create
 						</Button>
 					</ModalFooter>

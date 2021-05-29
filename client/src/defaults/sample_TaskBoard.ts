@@ -1,11 +1,12 @@
+import { v1 } from "uuid";
 import { Card } from "../@types/Card";
 import { Column, TaskBoard } from "../@types/TaskBoard";
-import { CardParentType } from "../enums";
+import { AppMode } from "../reducers/app";
 
 export const sampleTaskBoard = (name: string): TaskBoard => {
 	return {
 		name,
-		id: name,
+		id: v1(),
 		columns: sampleColumns(name),
 		description: "TaskBoard description goes here...",
 		lastUpd: new Date(),
@@ -50,11 +51,11 @@ const sampleColumnDone = (parent: string): Column => {
 const getCard = (parent: string, title: string): Card => {
 	return {
 		title,
-		id: title,
+		id: v1(),
 		content: "",
 		hasTodo: false,
 		parent,
-		parentType: CardParentType.taskboard,
+		parentType: AppMode.taskboard,
 		timestamp: new Date(),
 	};
 };

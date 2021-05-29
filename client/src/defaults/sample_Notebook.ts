@@ -1,14 +1,13 @@
+import { v1 } from "uuid";
 import { Card, Todo, TodoItem } from "../@types/Card";
 import { ID } from "../@types/Global";
 import { NoteBook } from "../@types/NoteBook";
-import { CardParentType } from "../enums";
+import { AppMode } from "../reducers/app";
 
-// As of now name is used as ID
-// later will be replaced with db id
 export const sampleNotebook = (name: string): NoteBook => {
 	return {
 		name,
-		id: name,
+		id: v1(),
 		cards: sampleCards(name),
 		lastUpd: new Date(),
 	};
@@ -23,12 +22,12 @@ const sampleGroceryCard = (parent: string): Card => {
 	let title = "Grocery List";
 	return {
 		title,
-		id: title,
+		id: v1(),
 		content: "Things to buy...",
 		hasTodo: true,
 		todo: sampleTodo(title),
 		parent,
-		parentType: CardParentType.notebook,
+		parentType: AppMode.notebook,
 		timestamp: new Date(),
 	};
 };
@@ -37,11 +36,11 @@ const sampleAddressCard = (parent: string): Card => {
 	let title = "Work Address";
 	return {
 		title,
-		id: title,
+		id: v1(),
 		content: "Bangalore, KA\nWhitefield",
 		hasTodo: false,
 		parent,
-		parentType: CardParentType.notebook,
+		parentType: AppMode.notebook,
 		timestamp: new Date(),
 	};
 };
