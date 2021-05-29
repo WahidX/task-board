@@ -25,7 +25,7 @@ function Cards(props) {
 
 	let onSaveHandle = () => {
 		if (newCard.title.trim().length === 0) return;
-		props.dispatch(updateCard(newCard, props.index));
+		props.dispatch(updateCard(newCard, props.app.currentItem, props.index, props.app.mode));
 		onClose();
 		setToast("Card updated", toastStatus.success);
 	};

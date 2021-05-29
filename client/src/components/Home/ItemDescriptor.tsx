@@ -14,7 +14,7 @@ import {
 	ModalOverlay,
 	useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { NoteBook } from "../../@types/NoteBook";
 import { AppStore, ItemStore } from "../../@types/Stores";
@@ -24,7 +24,6 @@ import { AppMode } from "../../reducers/app";
 import { RootState } from "../../store";
 
 function ItemDescriptor(props: ItemDescriptorProps) {
-	useEffect(() => {}, [props.item.name]);
 	const [itemName, setItemName] = useState(props.item.name);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 

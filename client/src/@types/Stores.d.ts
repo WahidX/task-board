@@ -1,11 +1,12 @@
 import { AppMode } from "../reducers/app";
+import { ID } from "./Global";
 import { NoteBook } from "./NoteBook";
 import { TaskBoard } from "./TaskBoard";
 
 export interface AppStore {
 	local: Boolean;
 	mode: AppMode;
-	currentItem?: NoteBook | TaskBoard; // have to check
+	currentItem?: ID; // have to check
 	error: string;
 	loading: Boolean;
 	config: Object;

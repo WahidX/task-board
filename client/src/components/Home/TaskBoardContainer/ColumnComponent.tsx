@@ -63,7 +63,7 @@ function ColumnComponent(props) {
 				setOpenDeleteConfirm(false);
 				break;
 			case "clear-all":
-				if (confirmed) props.dispatch(clearCards(props.index));
+				if (confirmed) props.dispatch(clearCards(props.index, props.app.currentItem));
 				setOpenClearAllConfirm(false);
 				break;
 		}

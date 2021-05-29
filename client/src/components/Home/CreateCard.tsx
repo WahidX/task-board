@@ -48,6 +48,7 @@ function CreateCard(props) {
 					parentType: props.columnName ? AppMode.taskboard : AppMode.notebook,
 					timestamp: new Date(),
 				},
+				props.app.currentItem,
 				props.columnIndex
 			)
 		);

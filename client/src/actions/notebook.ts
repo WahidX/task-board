@@ -14,6 +14,7 @@ import {
 	DELETE_COLUMN,
 	CLEAR_CARDS,
 	ADD_COLUMN,
+	DELETE_CARD_SUCCESS,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
@@ -64,16 +65,8 @@ export const editNotebookSuccess = (notebook: NoteBook) => {
 export const editNotebook = (notebook: NoteBook) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
-		//
-		//	API call to add NoteBook
-		//
-		// Success:
-		dispatch(editNotebookSuccess(notebook));
-		// Alert
 
-		// Failed
-		// dispatch(itemError(err));
-		// alert err
+		dispatch(editNotebookSuccess(notebook));
 	};
 };
 
@@ -88,31 +81,24 @@ export const deleteNotebookSuccess = (id: ID) => {
 export const deleteNotebook = (id: ID) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
-		//
-		//	API call to add NoteBook
-		//
-		// Success:
-		dispatch(deleteNotebookSuccess(id));
-		// Alert
 
-		// Failed
-		// dispatch(itemError(err));
-		// alert err
+		dispatch(deleteNotebookSuccess(id));
 	};
 };
 
-export const addCardSuccess = (card: Card, columnIndex?: number) => {
+export const addCardSuccess = (card: Card, itemID: ID, columnIndex?: number) => {
 	return {
 		type: ADD_CARD_SUCCESS,
 		card,
 		columnIndex,
+		itemID,
 	};
 };
 
-export const addCard = (card: Card, columnIndex?: number) => {
+export const addCard = (card: Card, itemID: ID, columnIndex?: number) => {
 	return (dispatch: Dispatch) => {
 		dispatch(itemLoading());
-		dispatch(addCardSuccess(card, columnIndex));
+		dispatch(addCardSuccess(card, itemID, columnIndex));
 		setToast("Card created!", toastStatus.success);
 	};
 };
@@ -134,7 +120,7 @@ export const editCard = (card: Card) => {
 
 export const deleteCardSuccess = (id: ID) => {
 	return {
-		type: ADD_CARD_SUCCESS,
+		type: DELETE_CARD_SUCCESS,
 		id,
 	};
 };
@@ -195,17 +181,24 @@ export const deleteColumn = (taskboardID: ID, columnIndex: number) => {
 	};
 };
 
-export const clearCards = (columnIndex: number) => {
+export const clearCards = (columnIndex: number, taskboardID: ID) => {
 	return {
 		type: CLEAR_CARDS,
 		columnIndex,
+		taskboardID,
 	};
 };
 
 export const addColumn = (name: string, taskboardID: ID) => {
+	let newColumn: Column = {
+		name,
+		taskboard: taskboardID,
+		cards: [],
+	};
+
 	return {
 		type: ADD_COLUMN,
-		name,
+		newColumn,
 		taskboardID,
 	};
 };
