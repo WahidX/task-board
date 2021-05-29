@@ -69,10 +69,6 @@ function ColumnComponent(props) {
 		}
 	};
 
-	let createCardEventDelagation = (event: Event) => {
-		document.getElementById("create-card-btn")?.click();
-	};
-
 	if (!column) return null;
 
 	return (

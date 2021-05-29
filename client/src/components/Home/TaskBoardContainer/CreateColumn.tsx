@@ -30,7 +30,7 @@ function CreateColumn(props) {
 
 		if (columnName.trim().length !== 0) {
 			if (allColumnNames.indexOf(columnName.trim()) === -1) {
-				props.dispatch(addColumn(columnName.trim()));
+				props.dispatch(addColumn(columnName.trim(), props.app.currentItem.id));
 				setToast("New Column Added", toastStatus.success);
 				onClose();
 			} else {

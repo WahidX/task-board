@@ -9,7 +9,6 @@ import {
 	DELETE_COLUMN,
 	UPDATE_CARD,
 	UPDATE_CARDS,
-	UPDATE_COLUMNS,
 	UPDATE_CURRENT_ITEM,
 	UPDATE_CURRENT_ITEM_NAME,
 } from "../actions/actionTypes";
@@ -66,15 +65,6 @@ export default function app(state = initialState, action: AnyAction) {
 				currentItem: {
 					...state.currentItem,
 					columns: changedColumns,
-				},
-			};
-
-		case UPDATE_COLUMNS:
-			return {
-				...state,
-				currentItem: {
-					...state.currentItem,
-					columns: action.columns,
 				},
 			};
 

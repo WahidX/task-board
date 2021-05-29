@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { ItemStore } from "../@types/Stores";
-import { TaskBoard } from "../@types/TaskBoard";
+import { Column, TaskBoard } from "../@types/TaskBoard";
 
 import {
 	START_ITEM_LOADING,
@@ -10,6 +10,8 @@ import {
 	DELETE_NOTEBOOK_SUCCESS,
 	ADD_TASKBOARD_SUCCESS,
 	EDIT_COLUMN,
+	UPDATE_COLUMNS,
+	ADD_COLUMN,
 } from "../actions/actionTypes";
 
 const initialState: ItemStore = {
@@ -76,6 +78,34 @@ export default function items(state: ItemStore = initialState, action: Action | 
 		case EDIT_COLUMN:
 			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
 			changedTaskboard.columns[action.columnIndex].name = action.name;
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: changedTaskboard,
+				},
+			};
+
+		case UPDATE_COLUMNS:
+			var changedTaskboard: TaskBoard = state.taskboards[action.taskboardID];
+			changedTaskboard.columns = action.columns;
+
+			return {
+				...state,
+				taskboards: {
+					...state.taskboards,
+					[action.taskboardID]: changedTaskboard,
+				},
+			};
+
+		case ADD_COLUMN:
+			var newColumn: Column = {
+				name: action.name,
+				taskboard: action.taskboardID,
+				cards: [],
+			};
+			var changedTaskboard = state.taskboards[action.taskboardID];
+			changedTaskboard.columns.push(newColumn);
 			return {
 				...state,
 				taskboards: {

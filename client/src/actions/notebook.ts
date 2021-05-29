@@ -202,9 +202,10 @@ export const clearCards = (columnIndex: number) => {
 	};
 };
 
-export const addColumn = (name: string) => {
+export const addColumn = (name: string, taskboardID: ID) => {
 	return {
 		type: ADD_COLUMN,
 		name,
+		taskboardID,
 	};
 };
