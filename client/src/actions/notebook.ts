@@ -118,17 +118,12 @@ export const editCard = (card: Card) => {
 	};
 };
 
-export const deleteCardSuccess = (id: ID) => {
+export const deleteCard = (cardIndex: number, itemID: ID, columnIndex?: number) => {
 	return {
 		type: DELETE_CARD_SUCCESS,
-		id,
-	};
-};
-
-export const deleteCard = (id: ID) => {
-	return (dispatch: Dispatch) => {
-		dispatch(itemLoading());
-		dispatch(deleteCardSuccess(id));
+		cardIndex,
+		itemID,
+		columnIndex,
 	};
 };
 

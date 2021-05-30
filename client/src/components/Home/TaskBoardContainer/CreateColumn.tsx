@@ -11,28 +11,30 @@ import {
 	PopoverHeader,
 	PopoverTrigger,
 	Text,
+	useDisclosure,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
-import { Column } from "../../../@types/TaskBoard";
+import { Column, TaskBoard } from "../../../@types/TaskBoard";
 import { addColumn } from "../../../actions/notebook";
 import { RootState } from "../../../store";
 import { setToast, toastStatus } from "../../shared/Toast";
 
 function CreateColumn(props) {
+	let item: TaskBoard = props.item;
 	const [columnName, setColumnName] = useState("");
+	const { onOpen, onClose, isOpen } = useDisclosure(true);
 	const initialFocusRef = useRef();
 
-	let handleAddColumn = (onClose: Function) => {
-		let allColumnNames: string[] = props.app.currentItem.columns.map(
-			(column: Column) => column.name
-		);
+	let handleAddColumn = () => {
+		let allColumnNames: string[] = item.columns.map((column: Column) => column.name);
 
 		if (columnName.trim().length !== 0) {
 			if (allColumnNames.indexOf(columnName.trim()) === -1) {
-				props.dispatch(addColumn(columnName.trim(), props.app.currentItem.id));
-				setToast("New Column Added", toastStatus.success);
+				props.dispatch(addColumn(columnName.trim(), item.id));
 				onClose();
+				setToast("New Column Added", toastStatus.success);
+				setColumnName("");
 			} else {
 				setToast("Name already present", toastStatus.error);
 			}
@@ -43,38 +45,28 @@ function CreateColumn(props) {
 
 	return (
 		<Box p="30px">
-			<Popover initialFocusRef={initialFocusRef}>
-				{({ isOpen, onClose }) => (
-					<>
-						<PopoverTrigger>
-							<Button
-								borderRadius="lg"
-								fontSize="md"
-								p="5"
-								border="dashed 1px grey"
-								// onClick={handleAddColumn}
-							>
-								<AddIcon />
-								<Text>Add Column</Text>
-							</Button>
-						</PopoverTrigger>
+			<Popover initialFocusRef={initialFocusRef} isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
+				<PopoverTrigger>
+					<Button borderRadius="lg" fontSize="md" p="5" border="dashed 1px grey">
+						<AddIcon />
+						<Text>Add Column</Text>
+					</Button>
+				</PopoverTrigger>
 
-						<PopoverContent>
-							<PopoverArrow />
-							<PopoverCloseButton />
-							<PopoverHeader>Column Name</PopoverHeader>
-							<PopoverBody>
-								<Input
-									type="text"
-									ref={initialFocusRef}
-									value={columnName}
-									onChange={(e) => setColumnName(e.target.value)}
-									onKeyDown={(e) => e.key === "Enter" && handleAddColumn(onClose)}
-								/>
-							</PopoverBody>
-						</PopoverContent>
-					</>
-				)}
+				<PopoverContent>
+					<PopoverArrow />
+					<PopoverCloseButton />
+					<PopoverHeader>Column Name</PopoverHeader>
+					<PopoverBody>
+						<Input
+							type="text"
+							ref={initialFocusRef}
+							value={columnName}
+							onChange={(e) => setColumnName(e.target.value)}
+							onKeyDown={(e) => e.key === "Enter" && handleAddColumn()}
+						/>
+					</PopoverBody>
+				</PopoverContent>
 			</Popover>
 		</Box>
 	);

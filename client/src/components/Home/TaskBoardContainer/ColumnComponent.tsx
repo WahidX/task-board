@@ -23,7 +23,7 @@ import React, { Key, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { Card } from "../../../@types/Card";
-import { Column } from "../../../@types/TaskBoard";
+import { Column, TaskBoard } from "../../../@types/TaskBoard";
 import { clearCards, deleteColumn, editColumn } from "../../../actions/notebook";
 import { RootState } from "../../../store";
 import ConfirmationDialog from "../../shared/ConfirmationBox";
@@ -33,7 +33,9 @@ import DNDCards from "../DNDCards";
 import { getListStyle } from "./taskboardStyle";
 
 function ColumnComponent(props) {
+	let item: TaskBoard = props.item;
 	let column: Column = props.column;
+
 	const [columnName, setColumnName] = useState(column.name);
 	const [editting, setEditting] = useState(false);
 
@@ -43,12 +45,10 @@ function ColumnComponent(props) {
 
 	let columnNameChangeHandle = () => {
 		// gathering all the column names
-		let allColumnNames: string[] = props.app.currentItem.columns.map(
-			(column: Column) => column.name
-		);
+		let allColumnNames: string[] = item.columns.map((column: Column) => column.name);
 
 		if (columnName.trim().length !== 0 && allColumnNames.indexOf(columnName.trim()) === -1) {
-			props.dispatch(editColumn(props.app.currentItem.id, props.index, columnName));
+			props.dispatch(editColumn(item.id, props.index, columnName));
 			setEditting(false);
 			setToast("Column name changed", toastStatus.success);
 			return;
@@ -59,11 +59,11 @@ function ColumnComponent(props) {
 	let confirmCallback = (type: string, confirmed: boolean) => {
 		switch (type) {
 			case "delete":
-				if (confirmed) props.dispatch(deleteColumn(props.app.currentItem.id, props.index));
+				if (confirmed) props.dispatch(deleteColumn(item.id, props.index));
 				setOpenDeleteConfirm(false);
 				break;
 			case "clear-all":
-				if (confirmed) props.dispatch(clearCards(props.index, props.app.currentItem));
+				if (confirmed) props.dispatch(clearCards(props.index, item.id));
 				setOpenClearAllConfirm(false);
 				break;
 		}

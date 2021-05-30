@@ -19,17 +19,17 @@ import { addCard } from "../../actions/notebook";
 import { AppMode } from "../../reducers/app";
 import { v1 } from "uuid";
 
-const defaultCard = {
+const blankCard = {
 	title: "",
 	description: "",
 };
 
 function CreateCard(props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [card, setCard] = useState(defaultCard);
+	const [card, setCard] = useState(blankCard);
 
 	let resetCard = () => {
-		setCard(defaultCard);
+		setCard(blankCard);
 	};
 
 	let createCardHandle = () => {

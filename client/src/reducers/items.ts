@@ -120,9 +120,10 @@ export default function items(state: ItemStore = initialState, action: Action | 
 					...state.taskboards,
 					[action.taskboardID]: {
 						...state.taskboards[action.taskboardID],
-						columns: state.taskboards[action.taskboardID].columns.map((column, index) => {
-							if (index !== action.columnIndex) return column;
-						}),
+						columns: [
+							...state.taskboards[action.taskboardID].columns.slice(0, action.columnIndex),
+							...state.taskboards[action.taskboardID].columns.slice(action.columnIndex + 1),
+						],
 					},
 				},
 			};
@@ -140,7 +141,7 @@ export default function items(state: ItemStore = initialState, action: Action | 
 			};
 
 		case ADD_CARD_SUCCESS:
-			if (action.columnIndex)
+			if (action.columnIndex !== undefined)
 				return {
 					...state,
 					taskboards: {
@@ -212,6 +213,7 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				taskboards: {
 					...state.taskboards,
 					[action.taskboardID]: {
+						...state.taskboards[action.taskboardID],
 						columns: state.taskboards[action.taskboardID].columns.map((column, index) => {
 							if (index === action.columnIndex) {
 								return {
@@ -230,6 +232,7 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				taskboards: {
 					...state.taskboards,
 					[action.taskboardID]: {
+						...state.taskboards[action.taskboardID],
 						columns: state.taskboards[action.taskboardID].columns.map((column, index) => {
 							if (index === action.columnIndex)
 								return {

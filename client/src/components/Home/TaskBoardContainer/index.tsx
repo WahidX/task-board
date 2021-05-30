@@ -11,7 +11,7 @@ import ColumnComponent from "./ColumnComponent";
 import CreateColumn from "./CreateColumn";
 
 function TaskBoardContainer(props) {
-	let currentItem: TaskBoard = props.currentItem;
+	let item: TaskBoard = props.item;
 
 	let onDragEnd = (result: DropResult) => {
 		if (!result.destination) return; // Dragged outside
@@ -19,39 +19,29 @@ function TaskBoardContainer(props) {
 		if (result.type === "task") {
 			if (result.source.droppableId === result.destination.droppableId) {
 				// reordering within a column
-				let [columnIndex, newCardsArr] = getColumnIndex(
-					currentItem.columns,
-					result.source.droppableId
-				);
+				let [columnIndex, newCardsArr] = getColumnIndex(item.columns, result.source.droppableId);
 				newCardsArr = reorder(newCardsArr, result.source.index, result.destination.index);
-				props.dispatch(updateCards(currentItem.id, columnIndex, newCardsArr));
+				props.dispatch(updateCards(item.id, columnIndex, newCardsArr));
 			} else {
 				// moving from one column to another
-				let [srcColumnIndex, srcCardsArr] = getColumnIndex(
-					currentItem.columns,
-					result.source.droppableId
-				);
+				let [srcColumnIndex, srcCardsArr] = getColumnIndex(item.columns, result.source.droppableId);
 				// deletion
-				let movingCard: Card = currentItem.columns[srcColumnIndex].cards[result.source.index];
+				let movingCard: Card = item.columns[srcColumnIndex].cards[result.source.index];
 				srcCardsArr.splice(result.source.index, 1);
-				props.dispatch(updateCards(currentItem.id, srcColumnIndex, srcCardsArr));
+				props.dispatch(updateCards(item.id, srcColumnIndex, srcCardsArr));
 
 				// insertion
 				let [destColumnIndex, destCardsArr] = getColumnIndex(
-					currentItem.columns,
+					item.columns,
 					result.destination.droppableId
 				);
 				destCardsArr.splice(result.destination.index, 0, movingCard);
-				props.dispatch(updateCards(currentItem.id, destColumnIndex, destCardsArr));
+				props.dispatch(updateCards(item.id, destColumnIndex, destCardsArr));
 			}
 		} else if (result.source.index !== result.destination.index) {
 			// type is column and its reordering
-			let newColumnArr = reorder(
-				currentItem.columns,
-				result.source.index,
-				result.destination.index
-			);
-			props.dispatch(updateColumns(currentItem.id, newColumnArr));
+			let newColumnArr = reorder(item.columns, result.source.index, result.destination.index);
+			props.dispatch(updateColumns(item.id, newColumnArr));
 		}
 	};
 
@@ -66,15 +56,15 @@ function TaskBoardContainer(props) {
 							{...provided.droppableProps}
 							ref={provided.innerRef}
 						>
-							{currentItem.columns.length !== 0 &&
-								currentItem.columns.map((column, index) => (
-									<ColumnComponent key={column.name} column={column} index={index} />
+							{item.columns.length !== 0 &&
+								item.columns.map((column, index) => (
+									<ColumnComponent key={column.name} column={column} index={index} item={item} />
 								))}
 							{provided.placeholder}
 						</Grid>
 					)}
 				</Droppable>
-				<CreateColumn />
+				<CreateColumn item={item} />
 			</DragDropContext>
 		</Flex>
 	);
@@ -82,7 +72,7 @@ function TaskBoardContainer(props) {
 
 function mapStoreToProps(state: RootState) {
 	return {
-		currentItem: state.app.currentItem,
+		app: state.app,
 	};
 }
 

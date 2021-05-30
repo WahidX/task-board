@@ -24,21 +24,25 @@ import { AppMode } from "../../reducers/app";
 import { RootState } from "../../store";
 
 function ItemDescriptor(props: ItemDescriptorProps) {
-	const [itemName, setItemName] = useState(props.item.name);
+	let item: TaskBoard | NoteBook = props.item;
+	let app: AppStore = props.app;
+	let items: ItemStore = props.items;
+
+	const [itemName, setItemName] = useState(item.name);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	let handleUpdateName = () => {
 		let newName: string = itemName.trim();
 
-		if (props.app.mode === AppMode.notebook) {
-			if (props.items.notebooks[newName]) return;
+		if (app.mode === AppMode.notebook) {
+			if (items.notebooks[newName]) return;
 		} else {
-			if (props.items.taskboards[newName]) return;
+			if (items.taskboards[newName]) return;
 		}
 
 		// @ts-ignore
 		props.dispatch(updateCurrentItemName(newName));
-		setItemName(props.item.name);
+		setItemName(item.name);
 	};
 
 	if (props.item) {
@@ -48,10 +52,10 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 					<Flex gridGap="5" alignItems="center">
 						<Badge variant="solid" colorScheme="teal" borderRadius="md" fontSize="xl">
 							{/* @ts-ignore */}
-							{props.item.cards ? props.item.cards.length : props.item.columns.length}
+							{item.cards ? item.cards.length : item.columns.length}
 						</Badge>
 
-						<Text>{props.item.name}</Text>
+						<Text>{item.name}</Text>
 
 						<IconButton aria-label="edit" size="sm" onClick={onOpen}>
 							<EditIcon />
@@ -59,7 +63,7 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 					</Flex>
 
 					<Text fontSize="0.7em" cols={3}>
-						{props.item.lastUpd.toISOString()}
+						{item.lastUpd.toISOString()}
 					</Text>
 				</Box>
 
@@ -77,7 +81,7 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 						</ModalHeader>
 						<ModalCloseButton />
 
-						<ModalBody>{props.item.description}</ModalBody>
+						<ModalBody>{item.description}</ModalBody>
 
 						<ModalFooter>
 							<Button colorScheme="teal" mr={3} onClick={onClose}>
