@@ -17,6 +17,7 @@ import {
 	ADD_CARD_SUCCESS,
 	UPDATE_CARDS,
 	CLEAR_CARDS,
+	UPDATE_CURRENT_ITEM_NAME,
 } from "../actions/actionTypes";
 import { AppMode } from "./app";
 
@@ -89,6 +90,31 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				},
 				loading: false,
 			};
+
+		case UPDATE_CURRENT_ITEM_NAME:
+			if (action.mode === AppMode.notebook)
+				return {
+					...state,
+					notebooks: {
+						...state.notebooks,
+						[action.itemID]: {
+							...state.notebooks[action.itemID],
+							name: action.name,
+						},
+					},
+				};
+			else {
+				return {
+					...state,
+					taskboards: {
+						...state.taskboards,
+						[action.itemID]: {
+							...state.taskboards[action.itemID],
+							name: action.name,
+						},
+					},
+				};
+			}
 
 		case ADD_COLUMN:
 			return {

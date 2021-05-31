@@ -14,7 +14,7 @@ import {
 	ModalOverlay,
 	useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { NoteBook } from "../../@types/NoteBook";
 import { AppStore, ItemStore } from "../../@types/Stores";
@@ -31,6 +31,8 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 	const [itemName, setItemName] = useState(item.name);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
+	useEffect(() => setItemName(item.name), [item.name]);
+
 	let handleUpdateName = () => {
 		let newName: string = itemName.trim();
 
@@ -41,8 +43,8 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 		}
 
 		// @ts-ignore
-		props.dispatch(updateCurrentItemName(newName));
-		setItemName(item.name);
+		props.dispatch(updateCurrentItemName(newName, item.id, app.mode));
+		onClose();
 	};
 
 	if (props.item) {
@@ -63,7 +65,7 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 					</Flex>
 
 					<Text fontSize="0.7em" cols={3}>
-						{item.lastUpd.toISOString()}
+						{item.lastUpd.toUTCString()}
 					</Text>
 				</Box>
 

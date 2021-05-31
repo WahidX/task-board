@@ -1,3 +1,4 @@
+import { ID } from "../@types/Global";
 import { NoteBook } from "../@types/NoteBook";
 import { TaskBoard } from "../@types/TaskBoard";
 import { setToast, toastStatus } from "../components/shared/Toast";
@@ -13,9 +14,11 @@ export const updateCurrent = (mode: AppMode, item: NoteBook | TaskBoard) => {
 	};
 };
 
-export const updateCurrentItemName = (name: string) => {
+export const updateCurrentItemName = (name: string, itemID: ID, mode: AppMode) => {
 	return {
 		type: UPDATE_CURRENT_ITEM_NAME,
 		name,
+		itemID,
+		mode,
 	};
 };
