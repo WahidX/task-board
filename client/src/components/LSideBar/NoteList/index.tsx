@@ -37,7 +37,7 @@ function NoteList(props) {
 						<Button
 							isFullWidth={true}
 							colorScheme="teal"
-							variant={currentItem && currentItem.id === notebookArr[0] ? "solid" : "ghost"}
+							variant={currentItem && currentItem === notebookArr[0] ? "solid" : "ghost"}
 							onClick={() => handleSelectItem(AppMode.notebook, notebookArr[1])}
 						>
 							{notebookArr[1].name}
@@ -57,7 +57,7 @@ function NoteList(props) {
 						<Button
 							isFullWidth={true}
 							colorScheme="teal"
-							variant={currentItem && currentItem.id === taskboardArr[0] ? "solid" : "ghost"}
+							variant={currentItem && currentItem === taskboardArr[0] ? "solid" : "ghost"}
 							onClick={() => handleSelectItem(AppMode.taskboard, taskboardArr[1])}
 						>
 							{taskboardArr[1].name}

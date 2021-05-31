@@ -179,8 +179,8 @@ export default function items(state: ItemStore = initialState, action: Action | 
 						...state.taskboards,
 						[action.itemID]: {
 							...state.taskboards[action.itemID],
-							columns: state.taskboards[action.itemID].columns.map((column, index) => {
-								if (index === action.card.parent) {
+							columns: state.taskboards[action.itemID].columns.map((column) => {
+								if (column.name === action.card.parent) {
 									let newCards = column.cards;
 									newCards[action.index] = action.card;
 									return {
