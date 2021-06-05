@@ -24,6 +24,7 @@ import { NoteBook } from "../../../@types/NoteBook";
 import { AppStore, ItemStore } from "../../../@types/Stores";
 import { TaskBoard } from "../../../@types/TaskBoard";
 import { updateCurrentItemName } from "../../../actions/app";
+import { clearItem, deleteItem } from "../../../actions/notebook";
 import { AppMode } from "../../../reducers/app";
 import { RootState } from "../../../store";
 import ConfirmationDialog from "../../shared/ConfirmationBox";
@@ -68,13 +69,16 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 	};
 
 	let confirmCallback = (type: string, confirmed: boolean) => {
+		if (!confirmed) return;
 		switch (type) {
 			case "delete":
-				console.log(type, confirmed);
+				props.dispatch(deleteItem(item.id, app.mode));
+				setToast("Item deleted", toastStatus.success);
 				setOpenDeleteConfirm(false);
 				break;
 			case "clear-all":
-				console.log(type, confirmed);
+				props.dispatch(clearItem(item.id, app.mode));
+				setToast("Item cleared", toastStatus.success);
 				setOpenClearConfirm(false);
 				break;
 		}
@@ -128,20 +132,6 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 								>
 									Delete Item
 								</MenuItem>
-
-								{/* Confirmation Boxes */}
-								<ConfirmationDialog
-									type="clear-all"
-									open={openClearConfirm}
-									message="Are you sure?"
-									callback={confirmCallback}
-								/>
-								<ConfirmationDialog
-									type="delete"
-									open={openDeleteConfirm}
-									message="Are you sure?"
-									callback={confirmCallback}
-								/>
 							</MenuList>
 						</Menu>
 					</Flex>
@@ -151,11 +141,27 @@ function ItemDescriptor(props: ItemDescriptorProps) {
 					</Text>
 				</Box>
 
+				{/* Confirmation Boxes */}
+				<ConfirmationDialog
+					type="clear-all"
+					open={openClearConfirm}
+					message="Are you sure?"
+					callback={confirmCallback}
+				/>
+				<ConfirmationDialog
+					type="delete"
+					open={openDeleteConfirm}
+					message="Are you sure?"
+					callback={confirmCallback}
+				/>
+
+				{/* Rename Modal */}
 				<Modal isOpen={isOpen} onClose={onClose}>
 					<ModalOverlay />
 					<ModalContent>
 						<ModalHeader>
 							<Input
+								w="94%"
 								type="text"
 								value={itemName}
 								onChange={(e) => {

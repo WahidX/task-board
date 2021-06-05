@@ -24,8 +24,11 @@ export const DELETE_CARD_FAILED = "DELETE_CARD_FAILED";
 export const UPDATE_CARDS = "UPDATE_CARDS";
 export const UPDATE_CARD = "UPDATE_CARD";
 
+// Item
 export const START_ITEM_LOADING = "START_ITEM_LOADING";
 export const ITEM_ERROR = "ITEM_ERROR";
+export const DELETE_ITEM = "DELETE_ITEM";
+export const CLEAR_ITEM = "CLEAR_ITEM";
 
 // App
 export const UPDATE_CURRENT_ITEM = "UPDATE_CURRENT_ITEM";

@@ -18,6 +18,8 @@ import {
 	UPDATE_CARDS,
 	CLEAR_CARDS,
 	UPDATE_CURRENT_ITEM_NAME,
+	DELETE_ITEM,
+	CLEAR_ITEM,
 } from "../actions/actionTypes";
 import { AppMode } from "./app";
 
@@ -30,7 +32,7 @@ const initialState: ItemStore = {
 
 /*
 	:: Order ::
-	Genarals:
+	Genarals Items:
 	Notebook specific
 	Taskboard specific
 	*/
@@ -50,6 +52,50 @@ export default function items(state: ItemStore = initialState, action: Action | 
 				loading: false,
 				error: action.error,
 			};
+
+		case DELETE_ITEM:
+			if (action.mode === AppMode.notebook) {
+				let { [action.id]: valueToBeDeleted, ...restNotebooks } = state.notebooks;
+				return {
+					...state,
+					notebooks: {
+						...restNotebooks,
+					},
+				};
+			} else {
+				let { [action.id]: valueToBeDeleted, ...restTaskboards } = state.taskboards;
+				return {
+					...state,
+					taskboards: {
+						...restTaskboards,
+					},
+				};
+			}
+
+		case CLEAR_ITEM:
+			if (action.mode === AppMode.notebook) {
+				return {
+					...state,
+					notebooks: {
+						...state.notebooks,
+						[action.id]: {
+							...state.notebooks[action.id],
+							cards: [],
+						},
+					},
+				};
+			} else {
+				return {
+					...state,
+					taskboards: {
+						...state.taskboards,
+						[action.id]: {
+							...state.taskboards[action.id],
+							columns: [],
+						},
+					},
+				};
+			}
 
 		// Notebook specific
 		case ADD_NOTEBOOK_SUCCESS:

@@ -15,6 +15,8 @@ import {
 	CLEAR_CARDS,
 	ADD_COLUMN,
 	DELETE_CARD_SUCCESS,
+	DELETE_ITEM,
+	CLEAR_ITEM,
 } from "./actionTypes";
 import { sampleNotebook } from "../defaults/sample_Notebook";
 import { Card } from "../@types/Card";
@@ -23,8 +25,9 @@ import { setToast, toastStatus } from "../components/shared/Toast";
 import { ID } from "../@types/Global";
 import { sampleTaskBoard } from "../defaults/sample_TaskBoard";
 import { Column, TaskBoard } from "../@types/TaskBoard";
+import { AppMode } from "../reducers/app";
 
-// General
+// General Items
 export const itemLoading = (): Action => {
 	return {
 		type: START_ITEM_LOADING,
@@ -35,6 +38,22 @@ export const itemError = (error: any): AnyAction => {
 	return {
 		type: ITEM_ERROR,
 		error,
+	};
+};
+
+export const deleteItem = (id: ID, mode: AppMode): AnyAction => {
+	return {
+		type: DELETE_ITEM,
+		id,
+		mode,
+	};
+};
+
+export const clearItem = (id: ID, mode: AppMode): AnyAction => {
+	return {
+		type: CLEAR_ITEM,
+		id,
+		mode,
 	};
 };
 
